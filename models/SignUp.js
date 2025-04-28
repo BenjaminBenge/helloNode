@@ -10,7 +10,7 @@ const signUpSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  phoneNumber: {
+  phone: {
     type: Number,
     trim: true,
     required: true,

@@ -99,7 +99,7 @@ h1  Sign Up
 .space-around-manager-login
   .manager-login
     h4 Please enter your login details
-    form#myForm(action='/userSignUp' onsubmit='return formValidate()')
+    form#myForm(action='/userSignUp' onsubmit='return formValidate()' method="POST")
       .imgcontainer
         img.avatar(src='/img/flowers.jpg' alt='Avatar')
       div
@@ -164,10 +164,10 @@ h1  Sign Up
           option(value='Widow/Widower') Widow/Widower
         br
       div
-        label(for='maritalStatus') Branch :
+        label(for='branch') Branch :
         br
         br
-        select#maritalStatus(name='maritalStatus')
+        select#branch(name='branch')
           option(value='') --Select--
           option(value='Maganjo') Maganjo
           option(value='Matugga') Matugga
