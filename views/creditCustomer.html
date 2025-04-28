@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/public/css/index.css" />
+  <title>Credit Customers</title>
+</head>
+<body>
+  <h1>Credit Customers</h1>
+
+  <div class="space-around-manager-login">
+    <div class="manager-login">
+      <h4>Please enter customer's details</h4>
+
+      <form id="customerForm" onsubmit="return validateCustomerForm()">
+        <div class="imgcontainer">
+          <img src="/public/images/flowers.jpg" alt="Avatar" class="avatar" />
+        </div>
+
+        <label for="buyerName">Name Of Buyer</label><br />
+        <input type="text" id="buyerName" name="buyerName" /><br />
+        <small id="buyerNameError"></small><br />
+
+        <label for="gender">Gender</label><br />
+        <select id="gender" name="gender">
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select><br />
+        <small id="genderError"></small><br />
+
+        <label for="NINumber">National ID Number (NIN)</label><br />
+        <input type="text" id="NINumber" name="NINumber" /><br />
+        <small id="NINumberError"></small><br />
+
+        <label for="phoneNumber">Phone Number</label><br />
+        <input type="text" id="phoneNumber" name="phoneNumber" /><br />
+        <small id="phoneNumberError"></small><br />
+
+        <label for="amountDue">Amount Due</label><br />
+        <input type="text" id="amountDue" name="amountDue" /><br />
+        <small id="amountDueError"></small><br />
+
+        <label for="dueDate">Due Date</label><br />
+        <input type="date" id="dueDate" name="dueDate" /><br />
+        <small id="dueDateError"></small><br />
+
+        <label for="dateOfBirth">Date of Birth</label><br />
+        <input type="date" id="dateOfBirth" name="dateOfBirth" /><br />
+        <small id="dateOfBirthError"></small><br />
+
+        <label for="produceName">Produce Name</label><br />
+        <select id="produceName" name="produceName">
+          <option value="">Select Produce</option>
+          <option value="Beans">Beans</option>
+          <option value="Grains">Grains</option>
+          <option value="Maize">Maize</option>
+          <option value="Cow Peas">Cow Peas</option>
+          <option value="Soy Beans">Soy Beans</option>
+        </select><br />
+        <small id="produceNameError"></small><br />
+
+        <label for="maritalStatus">Marital Status</label><br />
+        <select id="maritalStatus" name="maritalStatus">
+          <option value="">Select Marital Status</option>
+          <option value="Single">Single</option>
+          <option value="Married">Married</option>
+          <option value="Divorced">Divorced</option>
+          <option value="Widow/Widower">Widow/Widower</option>
+        </select><br />
+        <small id="maritalStatusError"></small><br />
+
+        <label for="address">Address</label><br />
+        <input type="text" id="address" name="address" /><br />
+        <small id="addressError"></small><br />
+
+        <label for="city">City</label><br />
+        <input type="text" id="city" name="city" /><br />
+        <small id="cityError"></small><br />
+
+        <label for="salesAgentName">Sales Agent Name</label><br />
+        <select id="salesAgentName" name="salesAgentName">
+          <option value="">Select Sales Agent</option>
+          <!-- You can dynamically populate these options -->
+        </select><br />
+        <small id="salesAgentNameError"></small><br />
+
+        <input type="submit" value="Submit" />
+
+        <div class="lower-login-section" style="background-color: #f1f1f1">
+          <button type="button" class="cancelbtn">Cancel</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <script src="/public/js/validation.js"></script>
+</body>
+</html>

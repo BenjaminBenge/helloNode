@@ -1,0 +1,38 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/CSS/login.css')
+  title Document
+h2 Product List
+.topnav
+  a.active(href='#home') Home
+  a(href='/managerDash') Manager
+  a(href='/salesAgentDash') SalesAgent
+  a(href='/directorDash') Director
+div
+  table
+    thead 
+      tr
+        th Image
+        th Product Name
+        th Description
+        th Product Type
+        th Amount in Kilos
+    tbody 
+      if products.length 
+        each product in products
+          tr
+            td 
+              img(src="/"+product.image alt="image" width="100px" height="100px")
+            td #{product.productname}
+            td #{product.description}
+            td #{product.producttype}
+            td #{product.amountinkilos}
+            td 
+              a.btn.btn-primary.btn-block(href="/addSale/"+product._id) Make Sale
+            td 
+             form(action="/deleteSale" method = "post")
+                input(type="hidden" name="id" value=product._id)
+                button.btn.btn-danger.btn-block(type="submit") Delete 
+

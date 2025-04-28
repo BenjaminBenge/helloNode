@@ -1,0 +1,198 @@
+//- doctype html
+//- head
+//-   meta(charset='UTF-8')
+//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
+//-   link(rel='stylesheet' href='/CSS/login.css')
+//-   title
+//- h2 Sign In
+//- .topnav
+//-   a.active(href='#home') Home
+//-   a(href='/managerDash') Manager
+//-   a(href='/salesAgentDash') SalesAgent
+//-   a(href='/directorDash') Director
+//- div
+//- form(action='/userSignIn' method='post')
+//-   .imgcontainer
+//-     img.avatar(src='/img/img_avatar2.png' alt='Avatar')
+//-   .container
+//-     label(for='firstName')
+//-       b First name
+//-     input(type='text' placeholder='Enter Firstname' name='k' required='')
+//-     br
+//-     label(for='secondName')
+//-       b Second name
+//-     input(type='text' placeholder='Enter First name' name='secondName' required='')
+//-     br
+//-     label(for='phoneNumber')
+//-       b Phone Number
+//-     input(type='text' placeholder='Enter number' name='phoneNumber' required='')
+//-     br
+//-     label(for='email') 
+//-     br 
+//-     b Enter your email:
+//-     br
+//-     input(type='email' name='email' placeholder='Enter email' required='' )
+//-     br
+//-     label(for='password')
+//-       b Password
+//-     input(type='password' placeholder='Enter Password' name='password' required='')
+//-     br
+//-     label(for='role')
+//-       b Role
+//-     br
+//-     br
+
+//-     input#html(type='radio' name='role' value='director')
+//-     label(for='manager') Director
+//-     input#html(type='radio' name='role' value='manager')
+//-     label(for='manager') Manager
+//-     input#css(type='radio' name='role' value='salesagent')
+//-     label(for='salesAgent') Sales Agent
+//-     br
+//-     br
+//-     label(for='branch')
+//-       b Branch
+//-     br  
+//-     br
+//-     input#html(type='radio' name='branch' value='')
+//-     label(for='role') Maganjo
+    
+//-     input#css(type='radio' name='branch' value='')
+//-     label(for='css') Matugga
+//-     br
+
+
+
+
+
+
+//-     button(type='submit') Login 
+    
+  
+    
+//-     label
+//-       input(type='checkbox' checked='checked' name='remember')
+//-       |  Remember me
+//-   .cancel
+//-     button.cancelbtn(type='button') Cancel
+//-     span.psw
+//-       | Forgot 
+//-       a(href='#') password?
+
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/css/index.css')
+  title Sign Up
+ul
+  .home-space
+    li
+      a.active.home-btn(href='#home') Home
+  li
+    a.login-btn(href='#news') Stock
+  li
+    a.contact-btn(href='#contact') About
+  li
+    a.about-btn(href='#about') SignUp
+h1  Sign Up
+.space-around-manager-login
+  .manager-login
+    h4 Please enter your login details
+    form#myForm(action='/userSignUp' onsubmit='return formValidate()')
+      .imgcontainer
+        img.avatar(src='/img/flowers.jpg' alt='Avatar')
+      div
+        label(for='firstName') First Name:
+        br
+        input#firstName(type='text' name='fname')
+        br
+        small#firstNameError.error-message
+      div
+        label(for='secondName') Second Name:
+        br
+        input#secondName(type='text' name='sname')
+        br
+        small#secondNameError.error-message
+      div
+        label(for='email') Email:
+        br
+        input#email(type='email' name='email')
+        br
+        small#emailError.error-message
+      div
+        label(for='password') Password:
+        br
+        input#password(type='password' name='password')
+        br
+        small#passwordError.error-message
+      div
+        label(for='confirmPassword') Confirm Password:
+        br
+        input#confirmPassword(type='password' name='confirmPassword')
+        br
+        small#confirmPasswordError.error-message
+      div
+        label(for='dob') Date of Birth:
+        br
+        input#dateOfBirth(type='date' name='dob' )
+        br
+      div
+        label(for='ninNumber') National ID Number:
+        br
+        br
+        input#ninNumber(type='text' name='ninNumber')
+        br
+        br
+        small#ninNumberError.error-message
+      div
+        label(for='phone') Phone Number:
+        br
+        br
+        input#phone(type='text' name='phone')
+        br
+        br
+        small#phoneError.error-message
+      div
+        label(for='maritalStatus') Marital Status:
+        br
+        br
+        select#maritalStatus(name='maritalStatus')
+          option(value='') --Select--
+          option(value='Single') Single
+          option(value='Married') Married
+          option(value='Widow/Widower') Widow/Widower
+        br
+      div
+        label(for='maritalStatus') Branch :
+        br
+        br
+        select#maritalStatus(name='maritalStatus')
+          option(value='') --Select--
+          option(value='Maganjo') Maganjo
+          option(value='Matugga') Matugga
+        br
+      div
+        p Enter your Role here:
+        input#director(type='radio' name='director' value='Director')
+        label(for='director') Director
+        input#manager(type='radio' name='manager' value='Manager')
+        label(for='manager') Manager
+        input#salesAgent(type='radio' name='salesAgent' value='salesAgent')
+        label(for='salesAgent') salesAgent
+        br
+        br
+        small#roleError.error-message
+      input#submitButton(type='submit' value='Submit')
+      label
+        input(type='checkbox' checked='checked' name='remember')
+        |  Remember me
+      .lower-login-section(style='background-color: #f1f1f1')
+        button.cancelbtn(type='button') Cancel
+        span.password
+          | Forgot 
+          a(href='#') password?
+        span.create-account
+          | Have no account? 
+          a(href='#') Create One
+script(src='../public/js/signUpValidation.js')

@@ -1,0 +1,69 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='index.css')
+  ul
+    .home-space
+      li
+        a.active.home-btn(href='#home') Home
+    li
+      a.login-btn(href='#news') Stock
+    li
+      a.contact-btn(href='#contact ') About
+    li
+      a.about-btn(href='#about ') SignUp
+  title Document
+h1 Enter Supplier
+.space-around-manager-login
+  .manager-login
+    h4 Please enter the Supplier Details
+    form(action='')
+      .imgcontainer
+        img.avatar(src='/images/flowers.jpg' alt='Avatar')
+      label(for='fname') Supplier Name
+      br
+      input#fname(type='text' name='fname' value='')
+      br
+      br
+      label(for='fname') Supplier Location
+      br
+      input#Sname(type='text' name='Sname' value='')
+      br
+      br
+      label(for='fname') Contact
+      br
+      input#email(type='email' name='email' value='')
+      br
+      br
+      label(for='lname') Product Supplied
+      br
+      input#password(type='password' name='password' value='')
+      br
+      br
+      label(for='fname') Selling Price
+      br
+      input#email(type='email' name='email' value='')
+      br
+      br
+      label(for='lname') Date of Sale:
+      br
+      input#password(type='date' name='password' value='')
+      br
+      br
+      |           /&gt;
+      br
+      br
+      input(type='submit' value='Submit')
+      label
+        input(type='checkbox' checked='checked' name='remember')
+        |  Remember
+        |             me
+      .lower-login-section(style='background-color: #f1f1f1')
+        button.cancelbtn(type='button') Cancel
+        span.password
+          | Forgot 
+          a(href='#') password?
+        span.create-account
+          | Have no account? 
+          a(href='#')  Create One

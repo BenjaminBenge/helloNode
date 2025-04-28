@@ -1,0 +1,153 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/CSS/sales.css">
+
+
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>Sales Form</h2>
+
+    
+
+<div class="one">
+<form action="/sales" method="post">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value=""><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value=""><br><br>
+  <label for="fname">email:</label><br>
+  <input type="email" id="fname" name="fname" value=""><br>
+  <label for="pwd">Password:</label><br>
+  <input type="password" id="pwd" name="pwd"><br><br>
+  <input type="submit" value="Submit">
+</div>
+</form> 
+
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/css/index.css" />
+
+    <ul>
+      <div class="home-space">
+        <li><a class="active home-btn" href="#home">Home</a></li>
+      </div>
+
+      <li><a href="#news" class="login-btn">Stock</a></li>
+      <li><a href="#contact " class="contact-btn">About</a></li>
+      <li><a href="#about " class="about-btn">SignUp</a></li>
+    </ul>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Add Sale</h1>
+    <div class="space-around-manager-login">
+      <div class="manager-login">
+        <h4>Please make a sale here</h4>
+        <form action="" id="myForm">
+          <div class="imgcontainer">
+            <img src="/img/flowers.jpg" alt="Avatar" class="avatar" />
+          </div>
+          <div>
+            <div>
+              <label for="buyername">Buyer Name</label><br /><br />
+              <input
+                type="text"
+                id="buyerName"
+                name="buyername"
+                value=""
+              /><br />
+              <br />
+              <small id="buyerNameError"></small>
+            </div>
+            <label for="productToBuy">Product to Buy:</label><br /><br />
+            <select id="productToBuy" name="productToBuy" form="">
+              <option value="Cow Peas">Cow Peas</option>
+              <option value="Beans">Beans</option>
+              <option value="G-Nuts">G-Nuts</option>
+              <option value="Soy Beans">Soy Beans</option>
+              <option value="Maize">Maize</option>
+            </select>
+            <br /><br />
+          </div>
+          <div>
+            <label for="typeOfProduce">Type Of Produce:</label><br /><br />
+            <select id="typeOfProduce" name="typeOfProduce">
+              <option value="Legume">Legume</option>
+              <option value="Flour">Flour</option>
+              <option value="Nuts">Nuts</option></select
+            ><br /><br />
+          </div>
+          <div>
+            <label for="amountToBuy">Amount to buy in Kilos</label><br /><br />
+            <input
+              type="number"
+              id="amountToBuy"
+              name="amountToBuy"
+              value="1"
+              
+            /><br />
+            <br />
+            <small id="amountToBuyError"></small>
+          </div>
+        
+
+          <div>
+          
+            <label for="unitCost">Unit Cost in Ugx</label><br />
+            <input type="text" id="unitCost" name="unitCost" value="" /><br />
+            <br />
+          </div>
+          <div>
+            <label for="fname">Total Paid</label><br /><br />
+            <input type="text" id="totalPaid" name="totalPaid" value= "" /><br />
+            <br />
+          </div>
+          <div>
+            <div>
+              <label for="branch">Branch :</label><br /><br />
+              <select name="branch" id="branch">
+                <option value="">--Select--</option>
+                <option value="Maganjo">Maganjo</option>
+                <option value="Matugga">Matugga</option>
+              </select><br />
+            </div>
+  
+              <div>
+            <label for="branch">Branch :</label><br /><br />
+            <select name="branch" id="branch">
+              <option value="">--Select--</option>
+              <option value="Maganjo">Maganjo</option>
+              <option value="Matugga">Matugga</option>
+            </select><br />
+          </div>
+
+
+          </div>
+          <input type="submit" value="Submit" />
+         
+
+          <div class="lower-login-section" style="background-color: #f1f1f1">
+            <button type="button" class="cancelbtn">Cancel</button>
+            
+            
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="/public/js/validateSale.js"></script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+//- doctype html
+//- head
+//-   meta(charset='UTF-8')
+//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
+//-   link(rel='stylesheet' href='/CSS/login.css')
+//-   title
+//- h2 Sign In
+//- form(action='/login' method='post')
+//-   .imgcontainer
+//-     img.avatar(src='/img/img_avatar2.png' alt='Avatar')
+//-   .container
+//-     b Enter your email:
+//-     br
+//-     input(type='email' name='email' placeholder='Enter email' required='' )
+//-     br
+//-     label(for='password')
+//-       b Password
+//-     input(type='password' placeholder='Enter Password' name='password' required='')
+//-     br
+//-     button(type='submit') Login
+
+//-     label
+//-       input(type='checkbox' checked='checked' name='remember')
+//-       |  Remember me
+//-   .cancel
+//-     button.cancelbtn(type='button') Cancel
+//-     span.psw
+//-       | Forgot 
+//-       a(href='#') password?
+
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='css/index.css')
+  ul
+    .home-space
+      li
+        a.active.home-btn(href='#home') Home
+    li
+      a.login-btn(href='#news') Stock
+    li
+      a.contact-btn(href='#contact ') About
+    li
+      a.about-btn(href='#about ') Sign Up
+  title Document
+h1  Login
+.space-around-manager-login
+  .manager-login
+    h4 Please enter your login details
+    form(action='/login' method="post")
+      .imgcontainer
+        img.avatar(src='/img/flowers.jpg' alt='Avatar')
+      label(for='fname') Email:
+      br
+      input#email(type='email' name='email' value='')
+      br
+      br
+      label(for='lname') Password:
+      br
+      input#password(type='password' name='password' value='')
+      br
+      br
+      input(type='submit' value='Submit')
+      label
+        input(type='checkbox' checked='checked' name='remember')
+        |  Remember me
+      .lower-login-section(style='background-color:#f1f1f1')
+        button.cancelbtn(type='button') Cancel
+        span.password
+          | Forgot 
+          a(href='#') password?
+        span.create-account
+          | Have no account? 
+          a(href='#')  Create One

@@ -1,0 +1,107 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/public/css/index.css')
+  ul
+    .home-space
+      li
+        a.active.home-btn(href='#home') Home
+    li
+      a.login-btn(href='#news') Stock
+    li
+      a.contact-btn(href='#contact ') About
+    li
+      a.about-btn(href='#about ') SignUp
+  title Document
+h1 Credit Customers
+.space-around-manager-login
+  .manager-login
+    h4 Please enter customer&apos;s details
+    form#form(action='' onsubmit='return validateUserForm(event)')
+      .imgcontainer
+        img.avatar(src='/public/images/flowers.jpg' alt='Avatar')
+      label(for='fname') Name Of Buyer
+      br
+      input#buyerName(type='text' name='buyername' value='')
+      br
+      small#buyerNameError
+      br
+      label(for='gender') Gender:
+      br
+      select#gender(name='sex' form='')
+        option(value='Male') Male
+        option(value='Female') Female
+      small#genderError
+      br
+      label(for='NIN') NIN:
+      br
+      input#NINumber(type='text' name='NIN' value='')
+      br
+      small#NINumberError
+      br
+      label(for='fname') Phone Number:
+      br
+      input#phoneNumber(type='text' name='telePhoneNumber' value='')
+      br
+      small#phoneNumberError
+      br
+      small#phoneNumberError
+      label(for='amountDue') Amount Due:
+      br
+      input#password(type='text' name='amountDue' value='')
+      small#amountDueError
+      br
+      br
+      label(for='dueDate') Due Date:
+      br
+      input#dueDate(type='date' name='dueDate' value='')
+      br
+      small#dueDateError
+      br
+      label(for='lname') Date of Birth:
+      br
+      input#dateOfBirth(type='date' name='D.O.B' value='')
+      small#dateOfBirthError
+      br
+      br
+      label(for='produce') Produce Name:
+      br
+      select#produceName(name='produce' form='produceName')
+        option(value='Beans') Beans
+        option(value='Grains') Grains
+        option(value='Maize') Maize
+        option(value='CowPeas') Cow Peas
+        option(value='SoyBeans') Soy Beans
+      small#produceNameError
+      br
+      label(for='lname') Marital Status:
+      br
+      select#maritalStatus(name='maritalStatus' form='produceName')
+        option(value='Single') Single
+        option(value='Married') Married
+        option(value='Divorced') Divorced
+        option(value='Widow/Widwer') Widow/Widower
+      small#MaritalStatusError
+      br
+      label(for='address') Address
+      br
+      input#address(type='text' name='address' value='')
+      br
+      small#addressError
+      label(for='city') City
+      br
+      input#city(type='text' name='city' value='')
+      br
+      small#cityError
+      br
+      label(for='lname') SalesAgent:
+      br
+      select#salesAgentName(name='salesAgentName' form='')
+        option(value='') Sales Agent Name
+      small#salesAgentNameError
+      br
+      input(type='submit' value='Submit')
+      .lower-login-section(style='background-color: #f1f1f1')
+        button.cancelbtn(type='button') Cancel
+script(src='public/js/validation.js')

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/index.css" />
+  <title>Director Sign Up</title>
+</head>
+
+<body>
+  <ul>
+    <div class="home-space">
+      <li><a class="active home-btn" href="#home">Home</a></li>
+    </div>
+    <li><a href="#news" class="login-btn">Stock</a></li>
+    <li><a href="#contact" class="contact-btn">About</a></li>
+    <li><a href="#about" class="about-btn">SignUp</a></li>
+  </ul>
+
+  <h1>Director Sign Up</h1>
+
+  <div class="space-around-manager-login">
+    <div class="manager-login">
+      <h4>Please enter your login details</h4>
+
+      <form action="" id="myForm" onsubmit="return formValidate()">
+        <div class="imgcontainer">
+          <img src="/img/flowers.jpg" alt="Avatar" class="avatar" />
+        </div>
+
+        <div>
+          <label for="firstName">First Name:</label><br /><br />
+          <input type="text" id="firstName" name="fname" /><br /><br />
+          <small id="firstNameError" class="error-message"></small>
+        </div>
+
+        <div>
+          <label for="secondName">Second Name:</label><br /><br />
+          <input type="text" id="secondName" name="sname" /><br /><br />
+          <small id="secondNameError" class="error-message"></small>
+        </div>
+
+        <div>
+          <label for="email">Email:</label><br /><br />
+          <input type="email" id="email" name="email" /><br /><br />
+          <small id="emailError" class="error-message"></small>
+        </div>
+
+        <div>
+          <label for="password">Password:</label><br /><br />
+          <input type="password" id="password" name="password" /><br /><br />
+          <small id="passwordError" class="error-message"></small>
+        </div>
+
+        <div>
+          <label for="confirmPassword">Confirm Password:</label><br /><br />
+          <input type="password" id="confirmPassword" name="confirmPassword" /><br /><br />
+          <small id="confirmPasswordError" class="error-message"></small>
+        </div>
+
+        <div>
+          <label for="dob">Date of Birth:</label><br /><br />
+          <input type="date" id="dob" name="dob" /><br /><br />
+        </div>
+
+        <div>
+          <label for="ninNumber">National ID Number:</label><br /><br />
+          <input type="text" id="ninNumber" name="ninNumber" /><br /><br />
+          <small id="ninNumberError" class="error-message"></small>
+        </div>
+
+        
+        <div>
+            <label for="phone">Phone Number:</label><br /><br />
+            <input type="text" id="phone" name="phone" /><br /><br />
+            <small id="phoneError" class="error-message"></small>
+          </div>
+
+        <div>
+          <label for="maritalStatus">Marital Status:</label><br /><br />
+          <select name="maritalStatus" id="maritalStatus">
+            <option value="">--Select--</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widow/Widower">Widow/Widower</option>
+          </select><br />
+        </div>
+
+        
+        <div>
+            <label for="branch">Branch :</label><br /><br />
+            <select name="branch" id="branch">
+              <option value="">--Select--</option>
+              <option value="Maganjo">Maganjo</option>
+              <option value="Matugga">Matugga</option>
+            </select><br />
+          </div>
+
+
+
+        <div>
+            
+                <p>Enter your Role here:</p>
+                  <input type="radio" id="director" name="director" value="Director">
+                  <label for="director">Director</label>
+                  <input type="radio" id="manager" name="manager" value="Manager">
+                  <label for="manager">Manager</label>
+                  <input type="radio" id="salesAgent" name="salesAgent" value="salesAgent">
+                  <label for="salesAgent">salesAgent</label><br /> <br />
+                <small id="roleError" class="error-message"></small>
+            
+        </div>
+
+        <input type="submit" value="Submit" id="submitButton" />
+
+        <label>
+          <input type="checkbox" checked="checked" name="remember" /> Remember me
+        </label>
+
+        <div class="lower-login-section" style="background-color: #f1f1f1">
+          <button type="button" class="cancelbtn">Cancel</button>
+          <span class="password">Forgot <a href="#">password?</a></span>
+          <span class="create-account">Have no account? <a href="#">Create One</a></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../public/js/signUpValidation.js"></script>
+</body>
+</html>

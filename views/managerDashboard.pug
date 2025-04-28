@@ -1,0 +1,88 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')
+  link(rel='stylesheet' href='/CSS/login.css')
+  title 
+  .topnav
+  a.active(href='#home') Home
+  a(href='/managerDash') Manager
+  a(href='/salesAgentDash') SalesAgent
+  a(href='/directorDash') Director
+div
+nav.navbar.navbar-inverse.visible-xs
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle(type='button' data-toggle='collapse' data-target='#myNavbar')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='#')
+    #myNavbar.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.active
+          a(href='#') Dashboard
+        li
+          a(href='#') Users
+        li
+          a(href='#') Suppliers
+        li
+          a(href='#') Products
+.container-fluid
+  .row.content
+    .col-sm-3.sidenav.hidden-xs
+      h2
+      ul.nav.nav-pills.nav-stacked
+        li.active
+          a(href='#section1') Dashboard
+        li
+          a(href='#') Users
+        li
+          a(href='#') Suppliers
+        li
+          a(href='#') Products
+      br
+    br
+    .col-sm-9
+      .well
+        h4 Manager&apos;s Dashboard
+        p
+      .row
+        .col-sm-3
+          .well
+            h4 Users
+            p 1 Million
+        .col-sm-3
+          .well
+            h4 Total Sales
+            p 100 Million
+        .col-sm-3
+          .well
+            h4 Estimated Profit
+            p 10 Million
+        .col-sm-3
+          .well
+            h4 Estimated Growth
+            p 30%
+      .row
+        .col-sm-4
+          .well
+            h4 Top Clients
+            p Mawulu Keneth
+            p Ojok Bitu
+            p Mathias Opio
+        .col-sm-4
+          .well
+            h4 Top Suppliers
+            p Mawulu Keneth
+            p Ojok Bitu
+            p Mathias Opio
+        .col-sm-4
+          .well
+            h4 Top Products
+            p Mawulu Keneth
+            p Ojok Bitu
+            p Mathias Opio
