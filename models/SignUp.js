@@ -29,10 +29,7 @@ const signUpSchema = new mongoose.Schema({
 
   ninNumber:{
     type: String,
-  },
-
-  phone:{
-    type: Number
+    unique: true,
   },
  
   maritalStatus:{

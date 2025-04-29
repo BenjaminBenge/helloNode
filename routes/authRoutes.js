@@ -35,16 +35,16 @@ router.post("/userSignUp", async (req, res) => {
 });
 
 //adding users List Route
-router.get("/usersTable", (req, res) => {
-  res.render("userList");
-});
+// router.get("/usersTable", (req, res) => {
+//   res.render("userList" );
+// });
 
 
 //getting the Data from a DB to a table
 
 router.get("/usersTable", async (req, res) => {
   try {
-    let users = await SignUp.find().sort({$natural:-1});
+    let users = await Signup.find().sort({$natural:-1});
     res.render("userList", {
       signups: users,
 
@@ -69,11 +69,11 @@ router.post(
   (req, res) => {
     console.log(req.body);
     req.session.user = req.user;
-    if (req.user.role === "manager") {
+    if (req.user.role === "Manager") {
       res.redirect("/managerDash");
-    } else if (req.user.role === "salesagent") {
+    } else if (req.user.role === "salesAgent") {
       res.redirect("/salesAgentDash");
-    } else if (req.user.role === "director") {
+    } else if (req.user.role === "Director") {
       res.redirect("/directorDash");
     }else{
       res.send("You do not have any role in the system ")

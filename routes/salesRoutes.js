@@ -8,10 +8,14 @@ const Product = require("../models/Product");
 //adding a sale
 
 router.get("/addSale/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-  if (req.session.user.role === "salesagent" || req.session.user.role === "manager") 
+  req.session.user = req.user;
+  firstName = req.user.firstName
+  secondName = req.user.secondName 
+  branch = req.user.branch
+  if (req.session.user.role === "salesAgent" || req.session.user.role === "Manager") 
     try {
       const product = await Product.findOne({ _id: req.params.id });
-      res.render("sales", { product: product, currentUser: req.session.user});
+      res.render("addSale", { product: product, firstName, secondName, branch});
     } catch (error) {
       res.status(400).send("unable to find this item in the database");
     }
@@ -25,8 +29,8 @@ router.post("/addSale/:id",
    connectEnsureLogin.ensureLoggedIn(),
    async (req, res) => {   
   if (
-      req.session.user.role == "salesagent" ||
-      req.session.user.role == "manager"
+      req.session.user.role == "salesAgent" ||
+      req.session.user.role == "Manager"
       ) {
   try {
 

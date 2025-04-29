@@ -105,13 +105,13 @@ h1  Sign Up
       div
         label(for='firstName') First Name:
         br
-        input#firstName(type='text' name='fname')
+        input#firstName(type='text' name='firstName')
         br
         small#firstNameError.error-message
       div
         label(for='secondName') Second Name:
         br
-        input#secondName(type='text' name='sname')
+        input#secondName(type='text' name='secondName')
         br
         small#secondNameError.error-message
       div
@@ -135,7 +135,7 @@ h1  Sign Up
       div
         label(for='dob') Date of Birth:
         br
-        input#dateOfBirth(type='date' name='dob' )
+        input#dateOfBirth(type='date' name='dateOfBirth' )
         br
       div
         label(for='ninNumber') National ID Number:
@@ -174,11 +174,11 @@ h1  Sign Up
         br
       div
         p Enter your Role here:
-        input#director(type='radio' name='director' value='Director')
+        input#role(type='radio' name='role' value='Director')
         label(for='director') Director
-        input#manager(type='radio' name='manager' value='Manager')
+        input#role(type='radio' name='role' value='Manager')
         label(for='manager') Manager
-        input#salesAgent(type='radio' name='salesAgent' value='salesAgent')
+        input#role(type='radio' name='role' value='salesAgent')
         label(for='salesAgent') salesAgent
         br
         br

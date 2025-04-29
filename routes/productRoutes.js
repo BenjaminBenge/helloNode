@@ -21,7 +21,7 @@ var storage = multer.diskStorage({
   var upload = multer({ storage: storage });
 
   router.get("/addProduct", (req, res) => {
-    res.render("products");
+    res.render("addProduct");
   });
 
 //sending Data to the DB
@@ -34,7 +34,7 @@ router.post("/addProduct", upload.single("image"), async (req, res) => {
 
     res.redirect("/addProduct");
   } catch (error) {
-    res.status(400).render("products");
+    res.status(400).render("addProduct");
     console.log(error);
   }
 });

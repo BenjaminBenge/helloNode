@@ -17,6 +17,10 @@
 //-   <input type="text" id="fname" name="fname" value=""><br>
 //-   <label for="lname">Last name:</label><br>
 //-   <input type="text" id="lname" name="lname" value=""><br><br>
+//- label(for='produceName') Product to Purchase:
+//-             select#produceName(name='product')
+//-               option(value=produce._id) #{produce.produceName} 
+//-             span#produceNameError.text-danger
 //-   <label for="fname">email:</label><br>
 //-   <input type="email" id="fname" name="fname" value=""><br>
 //-   <label for="pwd">Password:</label><br>
@@ -45,7 +49,7 @@ h1 Add Sale
 .space-around-manager-login
   .manager-login
     h4 Please make a sale here
-    form#myForm(action="/addSales" method="post")
+    form#myForm(action="/addSale/:id" method="post")
       .imgcontainer
         img.avatar(src='/img/flowers.jpg' alt='Avatar')
       div
@@ -61,21 +65,15 @@ h1 Add Sale
         br
         br
         select#productToBuy(name='productToBuy' form='')
-          option(value='Cow Peas') Cow Peas
-          option(value='Beans') Beans
-          option(value='G-Nuts') G-Nuts
-          option(value='Soy Beans') Soy Beans
-          option(value='Maize') Maize
+         option(value=product._id) #{product.producename} 
         br
         br
       div
-        label(for='typeOfProduce') Type Of Produce:
+        label(for='typeOfProduce') Product to Buy:
         br
         br
         select#typeOfProduce(name='typeOfProduce')
-          option(value='Legume') Legume
-          option(value='Flour') Flour
-          option(value='Nuts') Nuts
+           option(value=product._id) #{product.productname} 
         br
         br
       div
@@ -104,10 +102,13 @@ h1 Add Sale
           label(for='branch') Branch :
           br
           br
-          select#branch(name='branch')
-            option(value='') --Select--
-            option(value='Maganjo') Maganjo
-            option(value='Matugga') Matugga
+          input#branch(type='text' name='branch' value=branch readonly)
+        div
+          label(for='soldBy') Sold By :
+          br
+          br
+          select#soldBy(name='soldBy')
+           option(value=firstName) #{firstName} 
           br
       input(type='submit' value='Submit')
       .lower-login-section(style='background-color: #f1f1f1')

@@ -2,31 +2,38 @@ const mongoose = require("mongoose");
 
 
 const productSchema = new mongoose.Schema({
-    buyerfirstname: {
+  buyername: {
     type: String,
     trim: true,
   },
-  buyerlastname: {
-    type: String,
-    trim: true,
-    
+  productname:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
   },
-  product:{
+ 
+  amountToBuy:{
+    type: String,
+  },
+  
+  unitprice:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
 
-  soldby:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Signup"
+  totalPaid:{
+    type: Number
   },
 
-  
-  unitCost: {
-    type: Number,
-    trim: true,    
+ 
+  branch:{
+    type: String
   },
-  
+
+  soldby:{
+    type: String
+  },
+
+
   AmountSold: {
     type: Number,
     trim: true,    
@@ -37,7 +44,7 @@ const productSchema = new mongoose.Schema({
   },
   branch: {
      type: mongoose.Schema.Types.ObjectId,
-    ref: "Product"
+    ref: "SignUp"
 
   },
 });

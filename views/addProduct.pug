@@ -58,7 +58,7 @@ doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  link(rel='stylesheet' href='index.css')
+  link(rel='stylesheet' href='/css/index.css')
   ul
     .home-space
       li
@@ -76,7 +76,12 @@ h1 Add Product
     h4 Please enter the product details
     form(action='/addProduct' method='post' enctype="multipart/form-data")
       .imgcontainer
-        img.avatar(src='/images/flowers.jpg' alt='Avatar')
+        img.avatar(src='/img/flowers.jpg' alt='Avatar')
+      label(for='image') Product Image
+      br
+      input#fname(type='file' name='image' value='')
+      br
+      br
       label(for='fname') Product Bought
       br
       input#fname(type='text' name='fname' value='')
