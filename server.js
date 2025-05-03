@@ -21,13 +21,14 @@ const app = express();
 const PORT = 3001;
 
 //import routes
-
+const creditCustomerRoutes = require("./routes/creditCustomerRoutes");
 const productRoutes = require("./routes/productRoutes");
 const salesRoutes = require("./routes/salesRoutes");
 const authRoutes = require("./routes/authRoutes");
 const managerRoutes = require("./routes/managerRoutes")
 const directorRoutes = require("./routes/directorRoutes")
 const salesAgentRoutes = require("./routes/salesAgentRoutes");
+const supplierRoutes = require("./routes/supplierRoutes");
 const { console } = require("inspector");
 
 
@@ -73,6 +74,10 @@ app.use("/", authRoutes);
 app.use("/", managerRoutes);
 app.use("/", directorRoutes);
 app.use("/", salesAgentRoutes);
+app.use("/", creditCustomerRoutes);
+app.use("/", supplierRoutes);
+
+
 
 
 // 6) Bootstrapping server

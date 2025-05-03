@@ -178,6 +178,41 @@
     //-             button.btn.btn-danger.btn-block(type="submit") Delete 
 
 
+
+//-       li
+//-         a.contact-btn(href='#contact ') About
+//-       li
+//-         a.about-btn(href='#about ') Login
+//-   h1 Sales List
+//-   div
+//-     div
+    //- table#customers
+    //-   tr
+    //-     th Supplier
+    //-     th Location
+    //-     th Contact
+    //-     th Product Supplied
+    //-     th Update
+    //-     th Delete
+    //- tbody    
+    //-    if suppliers.length 
+    //-      each supplier in suppliers
+    //-       tr
+    //-         td #{supplier.supplierName}
+            //- td #{supplier.supplierLocation}
+            //- td #{supplier.contact}
+            //- td #{supplier.suppliedProduct}
+            //-  //- td #{}add Date here
+            //-  td 
+            //-    a.btn.btn-primary.btn-block(href="/updateSupplier/"+supplier._id) Update
+            //-  td 
+            //-    form(action="/deleteSale" method = "post")
+            //-      input(type="hidden" name="id" value=supplier.id)
+            //-      button.btn.btn-danger.btn-block(type="submit") Delete 
+
+
+              
+                  
 doctype html
 head
   meta(charset='UTF-8')
@@ -197,31 +232,28 @@ head
         a.contact-btn(href='#contact ') About
       li
         a.about-btn(href='#about ') Login
-  h1 Sales List
+  h1 Suppliers
   div
     div
     table#customers
       tr
-        th First Name
-        th Second Name
-        th Date of Birth
-        th NIN
-        th Marital Status
-        th Phone Number
+        th Supplier
+        th Location
+        th Contact
+        th Product Supplied
         th Update
         th Delete
-    tbody    
-       if sales.length 
-         each sale in sales
+      if suppliers.length
+        each supplier in suppliers
           tr
-            td #{sale.firstname}
-            td #{sale.lastname}
-            td #{sale.AmountSold}
-            td #{sale.amountPaid}
-             //- td #{}add Date here
-             td 
-               a.btn.btn-primary.btn-block(href="/updateSale/"+sale._id) Update
-             td 
-               form(action="/deleteSale" method = "post")
-                 input(type="hidden" name="id" value=sale.id)
-                 button.btn.btn-danger.btn-block(type="submit") Delete 
+            td #{supplier.supplierName}
+            td #{supplier.supplierLocation}
+            td #{supplier.contact}
+            td #{supplier.suppliedProduct}
+            td
+              a.btn.btn-primary.btn-block(href="/updateSupplier/"+supplier._id) Update 
+            td
+              form(action="/deleteSupplier" method = "post")
+                   input(type="hidden" name="id" value=supplier._id)
+                   button.btn.btn-danger.btn-block(type="submit") Delete 
+      

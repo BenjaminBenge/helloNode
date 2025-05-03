@@ -10,24 +10,24 @@ const productSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  description: {
-    type: String,
+  supplier: {
+    type: String,  //want this to be a foreign key
     
   },
+
+  typeOfProduct:{
+    type: String
+  },
   
-  producttype: {
-    type: String,
+  dateOfPurchase: {
+    type: Date,
   },
 
-  amountinkilos: {
-    type: String,
+  C: {
+    type: Number,
   },
   unitprice:{
    type: Number
-  },
-
-  amount:{
-    type: Number,
   },
 
   amountSpent:{

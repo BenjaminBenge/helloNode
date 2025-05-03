@@ -14,29 +14,29 @@ head
     li
       a.about-btn(href='#about ') SignUp
   title Document
-h1 Enter Supplier
+h1 Update Supplier
 .space-around-manager-login
   .manager-login
     h4 Please enter the Supplier Details
-    form(action='/addSupplier' method ="POST")
+    form(action='/updateSupplier?id=' + supplier._id, method='post')
       .imgcontainer
-        img.avatar(src='/img/flowers.jpg' alt='Avatar')
+        img.avatar(src='/img/supplier2.jpg' alt='Avatar')
       label(for='fname') Supplier Name
       br
-      input#fname(type='text' name='supplierName' value='')
+      input#fname(type='text' name='supplierName' value=supplier.supplierName)
       br
       br
       label(for='fname') Supplier Location
       br
-      input#Sname(type='text' name='supplierLocation' value='')
+      input#Sname(type='text' name='supplierLocation' value=supplier.supplierLocation)
       br
       br
       label(for='fname') Contact
       br
-      input#email(type='text' name='contact' value='')
+      input#email(type='text' name='contact' value=supplier.contact)
       br
       br
-      input(type='submit' value='Submit')
+      input(type='submit' value='Update Supplier')
       label
       .lower-login-section(style='background-color: #f1f1f1')
         button.cancelbtn(type='button') Cancel

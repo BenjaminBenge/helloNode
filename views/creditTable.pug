@@ -1,0 +1,47 @@
+                 
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='stylesheet' href='/css/index.css')
+    ul
+      .home-space
+        li
+          a.active.home-btn(href='#home') Home
+      li
+        a.login-btn(href='#news') Stock
+      li
+        a.contact-btn(href='#contact ') About
+      li
+        a.about-btn(href='#about ') Login
+  h1 Credit Customers
+  div
+    div
+    table#customers
+      tr
+        th Full Name
+        th NIN
+        th Contact
+        th dueDate
+        th Update
+        th Make Sale
+        th Delete
+      if credits.length
+        each credit in credits
+          tr
+            td #{credit.buyername}
+            td #{credit.NIN}
+            td #{credit.telePhoneNumber}
+            td #{credit.dueDate}
+            td
+              a.btn.btn-primary.btn-block(href="/updateCredit/"+ credit._id) Update 
+            td 
+              a.btn.btn-primary.btn-block(href="/updateCredit/"+ credit._id) Make Sale 
+            td
+              form(action="/deleteProduct" method = "post")
+                   input(type="hidden" name="id" value=credit._id)
+                   button.btn.btn-danger.btn-block(type="submit") Delete 

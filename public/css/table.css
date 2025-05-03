@@ -1,15 +1,86 @@
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+/* Supplier Table Page Specific Styles */
+
+h1 {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  font-size: 36px;
+  color: #2c3e50;
+}
+
+.space-around-table {
+  background-color: #eefafa;
+  border-radius: 10px;
+  margin: 40px 100px;
+  padding: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.table {
+  padding-top: 20px;
+  overflow-x: auto;
+}
+
+#customers {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Inter", sans-serif;
+}
+
+#customers th,
+#customers td {
+  border: 1px solid #ddd;
+  padding: 14px;
+  text-align: left;
+}
+
+#customers th {
+  background-color: #04AA6D;
+  color: white;
+  font-weight: 600;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#customers tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Button Styles */
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Inter";
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+button.btn-danger.btn-block,
+a.btn-primary.btn-block {
+  width: 100%;
+}

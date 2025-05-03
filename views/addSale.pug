@@ -30,87 +30,137 @@
 //-   </form>
 //-   </body>
 //-   </html>
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  link(rel='stylesheet' href='/css/index.css')
-  ul
-    .home-space
+//- head
+//-   meta(charset='UTF-8')
+//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
+//-   link(rel='stylesheet' href='/css/index.css')
+//-   ul
+//-     .home-space
+//-       li
+//-         a.active.home-btn(href='#home') Home
+//-     li
+//-       a.login-btn(href='#news') Stock
+//-     li
+//-       a.contact-btn(href='#contact ') About
+//-     li
+//-       a.about-btn(href='#about ') SignUp
+//-   title Document
+//- h1 Add Sale
+//- .space-around-manager-login
+//-   .manager-login
+//-     h4 Please make a sale here
+//-     form#myForm(action="/addSale/:id" method="post")
+//-       .imgcontainer
+//-         img.avatar(src='/img/flowers.jpg' alt='Avatar')
+//-       div
+//-         div
+//-           label(for='buyername') Buyer Name
+//-           br
+//-           br
+//-           input#buyerName(type='text' name='buyername' value='')
+//-           br
+//-           br
+//-           small#buyerNameError
+//-         label(for='productToBuy') Product to Buy:
+//-         br
+//-         br
+//-         select#productToBuy(name='productToBuy' form='')
+//-          option(value=sale._id) #{product.producename} 
+//-         br
+//-         br
+//-       div
+//-         label(for='typeOfProduce') Product to Buy:
+//-         br
+//-         br
+//-         select#typeOfProduce(name='typeOfProduce')
+//-            option(value=sale._id) #{product.productname} 
+//-         br
+//-         br
+//-       div
+//-         label(for='amountToBuy') Amount to buy in Kilos
+//-         br
+//-         br
+//-         input#amountToBuy(type='number' name='amountToBuy' value='1')
+//-         br
+//-         br
+//-         small#amountToBuyError
+//-       div
+//-         label(for='unitCost') Unit Cost in Ugx
+//-         br
+//-         input#unitCost(type='text' name='unitCost' value='')
+//-         br
+//-         br
+//-       div
+//-         label(for='fname') Total Paid
+//-         br
+//-         br
+//-         input#totalPaid(type='text' name='totalPaid' value='')
+//-         br
+//-         br
+//-       div
+//-         div
+//-           label(for='branch') Branch :
+//-           br
+//-           br
+//-           input#branch(type='text' name='branch' value=branch readonly)
+//-         div
+//-           label(for='soldBy') Sold By :
+//-           br
+//-           br
+//-           select#soldBy(name='soldBy')
+//-            option(value=firstName) #{firstName} 
+//-           br
+//-       input(type='submit' value='Submit')
+//-       .lower-login-section(style='background-color: #f1f1f1')
+//-         button.cancelbtn(type='button') Cancel
+//- script(src='/public/js/validateSale.js')
+
+
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Add Sale
+    link(rel='stylesheet', href='/css/index.css') // Ensure this path is valid
+
+  body
+    // Navbar (optional)
+    ul
       li
-        a.active.home-btn(href='#home') Home
-    li
-      a.login-btn(href='#news') Stock
-    li
-      a.contact-btn(href='#contact ') About
-    li
-      a.about-btn(href='#about ') SignUp
-  title Document
-h1 Add Sale
-.space-around-manager-login
-  .manager-login
-    h4 Please make a sale here
-    form#myForm(action="/addSale/:id" method="post")
-      .imgcontainer
-        img.avatar(src='/img/flowers.jpg' alt='Avatar')
-      div
-        div
-          label(for='buyername') Buyer Name
-          br
-          br
-          input#buyerName(type='text' name='buyername' value='')
-          br
-          br
-          small#buyerNameError
-        label(for='productToBuy') Product to Buy:
+        a.home-btn(href='/') Home
+      li
+        a.login-btn(href='/stock') Stock
+      li
+        a.contact-btn(href='/about') About
+      li
+        a.about-btn(href='/login') Login
+
+    h1 Add Sale
+
+    .manager-login
+      form(action="/addSale", method="POST", id="addSaleForm")
+        label(for="customerName") Customer Name:
+        input(type="text", name="customerName", required)
+
+        br
+
+        label(for="date") Date:
+        input(type="date", name="date", required)
+
+        br
+
+        label(for="productToBuy") Select Product:
+        select#productToBuy(name="productToBuy", required)
+          each product in products
+            option(value=product._id) #{product.producename}
+
+        br
+
+        label(for="quantity") Quantity:
+        input(type="number", name="quantity", min="1", required)
+
         br
         br
-        select#productToBuy(name='productToBuy' form='')
-         option(value=product._id) #{product.producename} 
-        br
-        br
-      div
-        label(for='typeOfProduce') Product to Buy:
-        br
-        br
-        select#typeOfProduce(name='typeOfProduce')
-           option(value=product._id) #{product.productname} 
-        br
-        br
-      div
-        label(for='amountToBuy') Amount to buy in Kilos
-        br
-        br
-        input#amountToBuy(type='number' name='amountToBuy' value='1')
-        br
-        br
-        small#amountToBuyError
-      div
-        label(for='unitCost') Unit Cost in Ugx
-        br
-        input#unitCost(type='text' name='unitCost' value='')
-        br
-        br
-      div
-        label(for='fname') Total Paid
-        br
-        br
-        input#totalPaid(type='text' name='totalPaid' value='')
-        br
-        br
-      div
-        div
-          label(for='branch') Branch :
-          br
-          br
-          input#branch(type='text' name='branch' value=branch readonly)
-        div
-          label(for='soldBy') Sold By :
-          br
-          br
-          select#soldBy(name='soldBy')
-           option(value=firstName) #{firstName} 
-          br
-      input(type='submit' value='Submit')
-      .lower-login-section(style='background-color: #f1f1f1')
-        button.cancelbtn(type='button') Cancel
-script(src='/public/js/validateSale.js')
+
+        input(type="submit", value="Submit")

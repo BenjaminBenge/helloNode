@@ -79,37 +79,51 @@ h1 Add Product
         img.avatar(src='/img/flowers.jpg' alt='Avatar')
       label(for='image') Product Image
       br
+      br
       input#fname(type='file' name='image' value='')
       br
       br
-      label(for='fname') Product Bought
-      br
-      input#fname(type='text' name='fname' value='')
+      label(for='productname') Product :
       br
       br
-      label(for='fname') Supplier Name
-      br
-      input#fname(type='text' name='fname' value='')
-      br
-      br
-      label(for='fname') Type Of Produce
-      br
-      input#fname(type='text' name='fname' value='')
-      br
-      br
-      label(for='lname') Date of Purchase:
-      br
-      input#password(type='date' name='password' value='')
+      select#productname(name='productname')
+          option(value='Millet') Millet
+          option(value='Cow Peas') Cow Peas 
+          option(value='Beans') Beans
+          option(value='Maize') Maize  
+      br  
+      label(for='typeOfProduct') Type Of Produce
       br
       br
-      label(for='fname') Tonnage Bought
+      select#typeOfProduct(name='typeOfProduct')
+          option(value='Flour') Flour
+          option(value='Legumes') Legumes 
+          option(value='Grains') Grains
+      label(for='supplier') Supplier:
       br
-      input#fname(type='text' name='fname' value='')
+      br
+      select#supplier(name='supplier')
+          option(value='Nana Suppliers') Nana Suppliers
+          option(value='Simba Suppliers') Simba Suppliers
+          option(value=' Dr.Kasenene') Dr.Kasenene
+      label(for='dateOfPurchase') Date of Purchase:
+      br
+      input#dateOfPurchase(type='date' name='dateOfPurchase' value="")
       br
       br
-      label(for='fname') Cost Ugx
+      label(for='tonnage') Tonnage Bought
       br
-      input#fname(type='text' name='fname' value='')
+      input#amountinkilos(type='text' name='tonnage' value='')
+      br
+      br
+      label(for='unitprice') Unit Cost Ugx
+      br
+      input#unitprice(type='text' name='unitprice' value='')
+      br
+      br
+      label(for='amountSpent') Total Spent
+      br
+      input#unitprice(type='text' name='amountSpent' value='')
       br
       br
       div
@@ -122,15 +136,7 @@ h1 Add Product
           option(value='Matugga') Matugga
         br
       input(type='submit' value='Submit')
-      label
-        input(type='checkbox' checked='checked' name='remember')
-        |  Remember
-        |             me
       .lower-login-section(style='background-color: #f1f1f1')
         button.cancelbtn(type='button') Cancel
-        span.password
-          | Forgot 
-          a(href='#') password?
-        span.create-account
-          | Have no account? 
-          a(href='#')  Create One
+      
+       

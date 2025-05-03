@@ -70,7 +70,7 @@ router.post("/addSale/:id",
 
      await product.save();
 
-     res.redirect("/seeSales");
+     res.redirect("/seeTable");
     } else {
       return res
       .status(404)
@@ -105,7 +105,7 @@ router.get("/seeSales",
       );
 
       console.log("items in sales for maganjo", maganjoSales);
- res.render("seeSales", {
+ res.render("salesTable", {
  title: "Sales list",
  sales: items,
 });
@@ -173,7 +173,6 @@ router.post("/updateSale", async (req, res) => {
     res.redirect("/seeSales");
   } catch (error) {}
 });
-
 //route to delete sale
 router.post(
   "/deleteSale",
