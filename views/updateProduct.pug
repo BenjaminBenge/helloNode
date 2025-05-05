@@ -1,80 +1,3 @@
-
-//- doctype html
-//- head
-//-   meta(charset='UTF-8')
-//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-//-   link(rel='stylesheet' href='/css/index.css')
-//-   ul
-//-     .home-space
-//-       li
-//-         a.active.home-btn(href='#home') Home
-//-     li
-//-       a.login-btn(href='#news') Stock
-//-     li
-//-       a.contact-btn(href='#contact ') About
-//-     li
-//-       a.about-btn(href='#about ') SignUp
-//-   title Document
-//- h1 Add Product
-//- .space-around-manager-login
-//-   .manager-login
-//-     h4 Please enter the product details
-//-     form(action='/updateProduct?id='+product._id method='post' enctype="multipart/form-data")
-//-       .imgcontainer
-//-         img.avatar(src='/img/flowers.jpg' alt='Avatar')
-//-       label(for='image') Product Image
-//-       br
-//-       input#fname(type='file' name='image' value='')
-//-       br
-//-       br
-//-       label(for='productname') Product Bought
-//-       br
-//-       input#productname(type='text' name='productname' value=product.productname)
-//-       br
-//-       br
-//-       label(for='supplier') Supplier Name
-//-       br
-//-       input#supplier(type='text' name='supplier' value=product.supplier)
-//-       br
-//-       br
-//-       label(for='typeOfProduct') Type Of Produce
-//-       br
-//-       input#fname(type='text' name='typeOfProduct' value=product.typeOfProduct)
-//-       br
-//-       br
-//-       label(for='dateOfPurchase') Date of Purchase:
-//-       br
-//-       input#dateOfPurchase(type='date' name='dateOfPurchase' value=product.dateOfPurchase)
-//-       br
-//-       br
-//-       label(for=' amountinkilos') Tonnage Bought
-//-       br
-//-       input#amountinkilos(type='text' name='amountinkilos' value="")
-//-       br
-//-       br
-//-       label(for='unitprice') Unit Cost Ugx
-//-       br
-//-       input#unitprice(type='text' name='unitprice' value=product.unitprice)
-//-       br
-//-       br
-//-       label(for='amountSpent') Total Spent
-//-       br
-//-       input#unitprice(type='text' name='amountSpent' value=product.amountSpent)
-//-       br
-//-       br
-//-       div
-//-         label(for='branch') Branch :
-//-         br
-//-         br
-//-         select#branch(name='branch')
-//-           option(value=product._id) #{product.branch}
-        
-//-         br
-//-       input(type='submit' value='Submit')
-//-       .lower-login-section(style='background-color: #f1f1f1')
-//-         button.cancelbtn(type='button') Cancel
-      
-       
 doctype html
 html
   head
@@ -87,14 +10,15 @@ html
       .home-space
         li
           a.active.home-btn(href='#home') Home
-        li
-          a.login-btn(href='#news') Stock
-        li
-          a.contact-btn(href='#contact') About
-        li
-          a.about-btn(href='#about') SignUp
+      li
+        a.login-btn(href='#news') Stock
+      li
+        a.contact-btn(href='#contact') About
+      li
+        a.about-btn(href='#about') SignUp
 
     h1 Update Product
+
     .space-around-manager-login
       .manager-login
         h4 Please update the product details
@@ -108,15 +32,9 @@ html
           br
           br
 
-          label(for='productname') Product Bought
+          label(for='productname') Product :
           br
           input#productname(type='text', name='productname', value=product.productname)
-          br
-          br
-
-          label(for='supplier') Supplier Name
-          br
-          input#supplier(type='text', name='supplier', value=product.supplier)
           br
           br
 
@@ -126,37 +44,52 @@ html
           br
           br
 
-          label(for='dateOfPurchase') Date of Purchase:
+          label(for='supplier') Supplier:
           br
-          input#dateOfPurchase(type='text' name='dateOfPurchase' value=product.formattedDate)
-          br
-          br
-          label(for='amountinkilos') Tonnage Bought
-          br
-          input#amountinkilos(type='text', name='amountinkilos', value=product.amountinkilos)
+          input#supplier(type='text', name='supplier', value=product.supplier)
           br
           br
 
-          label(for='unitprice') Unit Cost Ugx
+          label(for='tonnage') Tonnage Bought (kg):
           br
-          input#unitprice(type='text', name='unitprice', value=product.unitprice)
-          br
-          br
-
-          label(for='amountSpent') Total Spent
-          br
-          input#amountSpent(type='text', name='amountSpent', value=product.amountSpent)
+          input#amountinkilos(type='number', name='tonnage', min='0', step='0.01', value=product.tonnage)
           br
           br
 
-          label(for='branch') Branch :
+          label(for='unitprice') Unit Cost (UGX per kg):
           br
-          select#branch(name='branch')
-            option(value=product.branch)= product.branch
+          input#unitprice(type='number', name='unitprice', min='0', step='0.01', value=product.unitprice)
           br
           br
+
+          label(for='amountSpent') Total Spent (UGX):
+          br
+          input#amountSpent(type='number', name='amountSpent', readonly, value=product.amountSpent)
+          br
+          br
+
+          div
+            label(for='branch') Branch
+            br
+            input#branch(type='text', name='branch', value=product.branch, readonly)
+            br
+            br
 
           input(type='submit', value='Update Product')
-
           .lower-login-section(style='background-color: #f1f1f1')
             button.cancelbtn(type='button') Cancel
+
+    // Inline script for auto‑calculation of Total Spent
+    script.
+      const qtyInput = document.getElementById('amountinkilos');
+      const priceInput = document.getElementById('unitprice');
+      const totalInput = document.getElementById('amountSpent');
+
+      function updateTotal() {
+        const qty = parseFloat(qtyInput.value) || 0;
+        const price = parseFloat(priceInput.value) || 0;
+        totalInput.value = (qty * price).toFixed(2);
+      }
+
+      qtyInput.addEventListener('input', updateTotal);
+      priceInput.addEventListener('input', updateTotal);

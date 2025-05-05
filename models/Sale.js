@@ -1,53 +1,37 @@
 const mongoose = require("mongoose");
 
-
-const productSchema = new mongoose.Schema({
+const saleSchema = new mongoose.Schema({
   buyername: {
     type: String,
-    trim: true,
+    trim: true
   },
-  productname:{
+  productname: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
+    ref: "Product"
   },
- 
-  amountToBuy:{
-    type: String,
-  },
-  
-  unitprice:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
-  },
-
-  totalPaid:{
+  amountToBuy: {
     type: Number
   },
-
- 
-  branch:{
-    type: String
+  unitprice: {
+    type: Number
   },
-
-  soldby:{
-    type: String
+  totalPaid: {
+    type: Number
   },
-
-
+  amountPaid: {
+    type: Number
+  },
   AmountSold: {
-    type: Number,
-    trim: true,    
-  },
-  amountPaid:{
-    type: Number,
-    trim: true,
+    type: Number
   },
   branch: {
-     type: mongoose.Schema.Types.ObjectId,
-    ref: "SignUp"
-
+    type: String
   },
+  soldby: {
+    type: String
+  }
+}, {
+  timestamps: true // ✅ Enables createdAt and updatedAt fields
 });
 
-
-module.exports = mongoose.model("Sale", productSchema);
+module.exports = mongoose.model("Sale", saleSchema);

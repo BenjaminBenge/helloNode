@@ -1,123 +1,135 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router();
-const multer = require("multer"); 
+const multer = require("multer");
 const connectEnsureLogin = require("connect-ensure-login");
-//import models
+const moment = require("moment");
 
+// Models
 const Product = require("../models/Product");
-const Supplier = require("../models/Supplier");
-// const Sale = require("../models/Sale");
+const Signup = require("../models/Signup");
 
+// — Multer setup — store uploads in public/img/uploads, save filename only
+const storage = multer.diskStorage({
+  destination: (req, file, cb) =>
+    cb(null, path.join(__dirname, "..", "public", "img", "uploads")),
+  filename: (req, file, cb) =>
+    cb(null, file.originalname)
+});
+const upload = multer({ storage });
 
-
-
-//adding images using multer  
-
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-  cb(null, "public/img/uploads");
-  },
-  filename: (req, file, cb) => {
-  cb(null, file.originalname);
-  },
-  });
-  var upload = multer({ storage: storage });
-
-  router.get("/addProduct", (req, res) => {
-    res.render("addProduct");
-  });
-
-//sending Data to the DB
-router.post("/addProduct", upload.single("image"), async (req, res) => {
-  try {
-    const product = new Product(req.body);
-    product.image = req.file.path;
-    console.log(product);
-    await product.save();
-
-    res.redirect("/addProduct");
-  } catch (error) {
-    res.status(400).render("addProduct");
-    console.log(error);
+// GET /addProduct → render form with branch
+router.get(
+  "/addProduct",
+  connectEnsureLogin.ensureLoggedIn(),
+  (req, res) => {
+    const branch = req.session.user.branch || "";
+    res.render("addProduct", { branch });
   }
-});
+);
 
-
-//getting from DB to list
-
-router.get("/seeProducts", async (req, res) => {
-  try {
-    let ourProducts = await Product.find().sort({$natural:-1});
-    res.render("productTable", {
-      products: ourProducts,
-    });
-  } catch (error) {
-    res.status(400).send("unable to find items in the database");
-  }
-});
-
-router.get("/seeProducts", (req, res) => {
-  res.render("ProductTable");
-});
-
-
-
-//Route to update Product
-
-router.get("/updateProduct/:id", async (req, res) => {
-  try {
-    const updateProduct = await Product.findOne({ _id: req.params.id });
-    res.render("updateProduct", { product: updateProduct });
-   
-  } catch (error) {
-    res.status(400).send("unable to find this item in the database");
-  }
-});
-
-// router.post("/updateProduct", async (req, res) => {
-//   try {
-//     await Product.findOneAndUpdate({ _id: req.query.id }, req.body);
-//     console.log("Updating product with ID:", req.query.id);
-//     console.log("Data received:", req.body);
-//     // console.log(updateProduct);
-//     // await updateProduct.save();
-//     res.redirect("/seeProducts");
-//   } catch (error) {
-//     res.status(400).send("Unable to update the product");
-//   }
-// });
-
-router.post("/updateProduct", upload.single("image"), async (req, res) => {
-  try {
-    const updateData = req.body;
-
-    // Format the date to "May 03 2025"
-const formattedDate = new Date(updateProduct.dateOfPurchase).toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "2-digit",
-});
-
-updateProduct.formattedDate = formattedDate;
-
-
-    // Attach image path if a new file was uploaded
-    if (req.file) {
-      updateData.image = req.file.path;
+// POST /addProduct → create new product
+router.post(
+  "/addProduct",
+  connectEnsureLogin.ensureLoggedIn(),
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const userBranch = req.session.user.branch;
+      const product = new Product({
+        ...req.body,
+        branch: userBranch,
+        image: req.file.filename // ✅ Image filename stored
+      });
+      await product.save();
+      res.redirect("/addProduct");
+    } catch (error) {
+      console.error("Error creating product:", error);
+      res.status(400).render("addProduct", {
+        branch: req.session.user.branch,
+        error: "Failed to add product"
+      });
     }
-
-    console.log("Updating product with ID:", req.query.id);
-    console.log("Data received:", updateData);
-
-    await Product.findOneAndUpdate({ _id: req.query.id }, updateData);
-    res.redirect("/seeProducts");
-  } catch (error) {
-    console.error(error);
-    res.status(400).send("Unable to update the product");
   }
-});
+);
 
+// GET /seeProducts → managers see all, agents see only their branch
+router.get(
+  "/seeProducts",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    console.log("🔥 ENTERED GET /seeProducts");
+    try {
+      const { role, branch } = req.session.user;
+      console.log("User role & branch:", role, branch);
 
+      const query = role === "Manager" ? {} : { branch };
+      let products = await Product.find(query).sort({ natural: -1 });
+
+      // ✅ Strip image to basename for correct rendering path
+      products = products.map(p => {
+        return {
+          ...p.toObject(),
+          image: path.basename(p.image) // /img/uploads/<filename>
+        };
+      });
+
+      console.log(
+        "After strip, first image values:",
+        products.slice(0, 5).map(p => p.image)
+      );
+
+      res.render("productTable", {
+        products,
+        moment,
+        branch,
+        role
+      });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      res.status(400).send("Unable to find items in the database");
+    }
+  }
+);
+
+// GET /updateProduct/:id → render update form
+router.get(
+  "/updateProduct/:id",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    try {
+      const product = await Product.findById(req.params.id);
+      if (!product) return res.status(404).send("Product not found");
+      res.render("updateProduct", {
+        product,
+        branch: req.session.user.branch
+      });
+    } catch (error) {
+      console.error("Error loading product:", error);
+      res.status(400).send("Unable to find this item in the database");
+    }
+  }
+);
+
+// POST /updateProduct → save edits, keep branch unchanged, update image if new
+router.post(
+  "/updateProduct",
+  connectEnsureLogin.ensureLoggedIn(),
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const updateData = { ...req.body, branch: req.session.user.branch };
+      if (req.file) updateData.image = req.file.filename; // ✅ Replace image if new
+      await Product.findByIdAndUpdate(req.query.id, updateData);
+      res.redirect("/seeProducts");
+    } catch (error) {
+      console.error("Error updating product:", error);
+      res.status(400).send("Unable to update the product");
+    }
+  }
+);
+
+// POST /deleteProduct → delete by id
 router.post(
   "/deleteProduct",
   connectEnsureLogin.ensureLoggedIn(),
@@ -126,10 +138,10 @@ router.post(
       await Product.deleteOne({ _id: req.body.id });
       res.redirect("back");
     } catch (error) {
-      res.status(400).send("unable to delete this item in the database");
+      console.error("Error deleting product:", error);
+      res.status(400).send("Unable to delete this item in the database");
     }
   }
 );
-
 
 module.exports = router;

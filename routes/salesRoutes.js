@@ -1,190 +1,131 @@
 const express = require("express");
 const router = express.Router();
-const Sale = require("../models/Sale");
 const connectEnsureLogin = require("connect-ensure-login");
+const moment = require("moment");
+
+// Models
 const Product = require("../models/Product");
-//import models
+const Sale = require("../models/Sale");
+const Signup = require("../models/Signup");
 
-//adding a sale
-
+// GET route to render the add sale form
 router.get("/addSale/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-  req.session.user = req.user;
-  firstName = req.user.firstName
-  secondName = req.user.secondName 
-  branch = req.user.branch
-  if (req.session.user.role === "salesAgent" || req.session.user.role === "Manager") 
-    try {
-      const product = await Product.findOne({ _id: req.params.id });
-      res.render("addSale", { product: product, firstName, secondName, branch});
-    } catch (error) {
-      res.status(400).send("unable to find this item in the database");
+  try {
+    const user = req.session.user;
+    if (!user) return res.redirect("/login");
+
+    const userDoc = await Signup.findById(user._id);
+    const userBranch = userDoc?.branch || "Unknown";
+    const role = userDoc?.role;
+    const firstName = userDoc.firstName;
+    const secondName = userDoc.secondName;
+
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).send("Product not found");
+
+    // Only allow sale from user's own branch unless Manager
+    if (role !== "Manager" && product.branch !== userBranch) {
+      return res.status(403).send("You are not allowed to sell this product.");
     }
-  else {
-    res.send("You are not allowed to access this page");
+
+    res.render("addSale", {
+      product,
+      firstName,
+      secondName,
+      branch: userBranch,
+      role,
+      error: null
+    });
+  } catch (err) {
+    console.error("Error in GET /addSale/:id:", err.message);
+    res.status(500).send("Error retrieving product");
   }
 });
 
-// POST route to handle making a sale
-router.post("/addSale/:id",
-   connectEnsureLogin.ensureLoggedIn(),
-   async (req, res) => {   
-  if (
-      req.session.user.role == "salesAgent" ||
-      req.session.user.role == "Manager"
-      ) {
+// POST route to create a sale
+router.post("/addSale", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
   try {
+    const user = req.session.user;
+    if (!user) return res.redirect("/login");
 
-    const{AmountSold}= req.body;
-    const product = await Product.findOne({ _id: req.params.id });
-    if(!product){
-      return res.status(404).send("Produce not found")
+    const userDoc = await Signup.findById(user._id);
+    const role = userDoc?.role;
+    const userBranch = userDoc?.branch;
+    const firstName = userDoc?.firstName;
+    const secondName = userDoc?.secondName;
+
+    const { productId, quantity } = req.body;
+    const product = await Product.findById(productId);
+    if (!product) return res.status(404).send("Product not found");
+
+    // Only allow sale if branch matches, unless Manager
+    if (role !== "Manager" && product.branch !== userBranch) {
+      return res.status(403).send("You are not allowed to sell this product.");
     }
-     
-     if(product.amountinkilos < AmountSold){
-      return res
-      .status(400)
-      .send(
-        'Not enough Tonnage in stock, there are ${product.amountinkilos} in stock'
-      );
-     }
 
-     if(product && product.amountinkilos>0){
-      const saleMade = new Sale({
-        productName: req.body.product,
-        SoldTonnage: req.body.AmountSold,
-        unitSellinPrice: req.body.unitCost,
-        amountPaid: req.body.amountPaid,
-        buyerName: req.body. buyerfirstname,
-        sellerName: req.body.soldby,
+    // Stock check
+    if (product.tonnage < quantity) {
+      return res.render("addSale", {
+        product,
+        firstName,
+        secondName,
+        branch: userBranch,
+        role,
+        error: `Only ${product.tonnage} tons in stock. You cannot sell ${quantity} tons.`
+      });
+    }
 
-      })
-     
-      
-     await saleMade.save();
+    // Create sale
+    const sale = new Sale({
+      customerName: req.body.customerName,
+      quantity,
+      price: req.body.price,
+      product: product._id,
+      seller: `${firstName} ${secondName}`,
+      branch: product.branch
+    });
 
-     //Decrease the tonnage of produce in the database by the number of 
-     //Kilos sold
+    // Update product stock
+    product.tonnage -= quantity;
 
-     product.amountinkilos -= AmountSold;
-     console.log("New tonnage after sale", product.amountinkilos);
+    await sale.save();
+    await product.save();
 
-     await product.save();
+    res.redirect("/seeSales");
+  } catch (err) {
+    console.error("Error in POST /addSale:", err.message);
+    res.status(500).send("Failed to record sale");
+  }
+});
 
-     res.redirect("/seeTable");
+// GET route to list sales 
+router.get("/seeSales", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+  try {
+    const user = req.user;
+    let sales;
+
+    if (user.role === "Manager") {
+      sales = await Sale.find().populate("productname").sort({ _id: -1 });
     } else {
-      return res
-      .status(404)
-      .json({error: "Produce not found or sold out"});
+      sales = await Sale.find({ branch: user.branch })
+        .populate("productname")
+        .sort({ _id: -1 });
     }
-  } catch(error){
-    console.error("Error selling produe:", error.message);
-    res.status(500).send("Internal Server Error");
-  }
 
-   }else{
-    res.send("You are not allowed to access this page");
-   }
-  }
-
-);
-
-//Get all Sales
-
-router.get("/seeSales",
-  connectEnsureLogin.ensureLoggedIn(),
-  async (req,res) => {
-   
-    try {
-      let items = await Sale.find()
-      .sort({$natural:-1})
-      .populate(" product") //populate the "prodname" field with the corresponding Produce document/ all details of produce are extracted
-      .populate("soldby")
-
-      const maganjoSales = items.filter(
-        (sale) => sale.product ?. branch === "Maganjo"
-      );
-
-      console.log("items in sales for maganjo", maganjoSales);
- res.render("salesTable", {
- title: "Sales list",
- sales: items,
-});
-
-} catch (err) {
-  res.status(400).send("Unable to find items in the database");
-  }
-  }
-  );
-    
+    const matuggaSales = sales.filter(s => s.branch === "Matugga");
+    const maganjoSales = sales.filter(s => s.branch === "Maganjo");
 
 
-//route to delete sale
-router.post(
-  "/deleteSale",
-  connectEnsureLogin.ensureLoggedIn(),
-  async (req, res) => {
-    try {
-      await Sale.deleteOne({ _id: req.body.id });
-      res.redirect("back");
-    } catch (error) {
-      res.status(400).send("unable to delete this item in the database");
-    }
-  }
-);
-
-//getting data from the db
-
-router.get("/seeSales", async (req, res) => {
-  try {
-    let ourSales = await Sale.find().sort({ $natural: -1 });
     res.render("salesTable", {
-      sales: ourSales,
+      sales,
+      matuggaSales: matuggaSales,
+      maganjoSales: maganjoSales,
+      moment,
     });
   } catch (error) {
-    res.status(400).send("unable to find items in the database");
+    console.error("Error in GET /seeSales:", error.message);
+    res.status(500).send("Unable to find sales in the database");
   }
 });
-
-// router.get("/getProducts", (req, res) => {
-//   res.send("This is the List of products");
-// });
-
-// router.get("/seeProducts", (req, res) => {
-//   res.render("ProductTable");
-// });
-
-router.get("/seeSales", (req, res) => {
-  res.render("salesTable");
-});
-
-//route to update sale
-router.get("/updateSale/:id", async (req, res) => {
-  try {
-    const updateSale = await Sale.findOne({ _id: req.params.id });
-    res.render("updatesale", { sale: updateSale });
-  } catch (error) {
-    res.status(400).send("unable to find this item in the database");
-  }
-});
-
-router.post("/updateSale", async (req, res) => {
-  try {
-    await Sale.findOneAndUpdate({ _id: req.query.id }, req.body);
-    res.redirect("/seeSales");
-  } catch (error) {}
-});
-//route to delete sale
-router.post(
-  "/deleteSale",
-  connectEnsureLogin.ensureLoggedIn(),
-  async (req, res) => {
-    try {
-      await Sale.deleteOne({ _id: req.body.id });
-      res.redirect("back");
-    } catch (error) {
-      res.status(400).send("unable to delete this item in the database");
-    }
-  }
-);
 
 module.exports = router;

@@ -351,7 +351,7 @@
   
   
   #customers {
-    font-family: Arial, Helvetica, sans-serif;
+
     border-collapse: collapse;
     width: 100%;
   }
@@ -369,7 +369,7 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #04AA6D;
+    background-color: #038181;;
     color: white;
   }
   
@@ -423,4 +423,111 @@ input.error, select.error {
 small {
   color: red;
   font-size: 12px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.form-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-warning {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+
+.form-error {
+  color: red;
+  background: #ffe6e6;
+  padding: 1rem;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.btn-submit {
+  background: #007bff;
+  color: white;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-submit:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+/* Base button style - consistent for all buttons */
+.btn-custom {
+  display: inline-block;
+  padding: 8px 12px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+/* Update button */
+.btn-update {
+  background-color: #df7b2a;
+}
+
+.btn-update:hover {
+  background-color: #57b2ea;
+}
+
+/* Make Sale button */
+.btn-sale {
+  background-color: #d0e4d6;
+  color: #064d27; /* Optional: darker text for contrast on light green */
+}
+
+.btn-sale:hover {
+  background-color: #97e6ae;
+}
+
+/* Delete button */
+.btn-delete {
+  background-color: #f74a8f;
+}
+
+.btn-delete:hover {
+  background-color: #df357a;
 }
