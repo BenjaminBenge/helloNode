@@ -92,6 +92,8 @@ router.get(
   }
 );
 
+
+
 // GET /updateProduct/:id → render update form
 router.get(
   "/updateProduct/:id",
@@ -110,6 +112,61 @@ router.get(
     }
   }
 );
+
+// GET /addSale/:id → render the sale form
+router.get("/addSale/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    const firstName = req.session.user.firstName;
+    const branch = req.session.user.branch;
+
+    if (!product) return res.status(404).send("Product not found");
+
+    res.render("addSale", {
+      product,
+      firstName,
+      branch,
+      error: null
+    });
+  } catch (error) {
+    console.error("Error loading sale form:", error);
+    res.status(400).send("Unable to load sale form");
+  }
+});
+
+// POST /addSale/:id → process the sale submission
+router.post("/addSale/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+  try {
+    const { buyername, amountToBuy, unitCost, totalPaid, salesPerson, branch } = req.body;
+    const product = await Product.findById(req.params.id);
+
+    if (!product) return res.status(404).send("Product not found");
+
+    const quantityToBuy = parseFloat(amountToBuy);
+
+    // Validate stock availability
+    if (product.tonnage < quantityToBuy) {
+      return res.status(400).render("addSale", {
+        product,
+        firstName: salesPerson,
+        branch,
+        error: "Not enough stock available."
+      });
+    }
+
+    // Subtract purchased quantity from stock
+    product.tonnage -= quantityToBuy;
+    await product.save();
+
+    // Optional: You can create and save a Sale object here if you have a Sale model
+
+    res.redirect("/seeProducts");
+  } catch (err) {
+    console.error("Error processing sale:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 // POST /updateProduct → save edits, keep branch unchanged, update image if new
 router.post(

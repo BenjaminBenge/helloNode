@@ -4,45 +4,6 @@ html
     meta(charset='UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     link(rel='stylesheet' href='/css/index.css')
-    style.
-      .btn-custom {
-        display: inline-block;
-        padding: 8px 12px;
-        text-align: center;
-        border-radius: 5px;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-        text-decoration: none;
-        transition: background-color 0.2s ease-in-out;
-        cursor: pointer;
-        border: none;
-      }
-
-      .btn-update {
-        background-color:rgb(36, 167, 243);
-      }
-
-      .btn-update:hover {
-        background-color: #57b2ea;
-      }
-
-      .btn-sale {
-        background-color:rgb(7, 209, 115);
-        color:rgb(242, 247, 244);
-      }
-
-      .btn-sale:hover {
-        background-color: #97e6ae;
-      }
-
-      .btn-delete {
-        background-color:rgb(177, 5, 74);
-      }
-
-      .btn-delete:hover {
-        background-color: #df357a;
-      }
   body
     ul
       .home-space
@@ -91,10 +52,10 @@ html
               td #{moment(product.createdAt).format("YYYY-MM-DD HH:mm")}
               td #{product.branch}
               td
-                a.btn-custom.btn-update(href="/updateProduct/" + product._id) Update
+                a.btn.btn-update(href="/updateProduct/" + product._id) Update
               td
-                a.btn-custom.btn-sale(href=`/addSale/${product._id}`) Make Sale
+                a.btn.btn-sale(href="/addSale/" + product._id) Make Sale
               td
                 form(action="/deleteProduct" method="post")
                   input(type="hidden" name="id" value=product._id)
-                  button.btn-custom.btn-delete(type="submit") Delete
+                  button.btn.btn-delete(type="submit") Delete

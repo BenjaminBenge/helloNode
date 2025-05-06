@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema({
     type: String
   }
 }, {
-  timestamps: true // ✅ This adds createdAt and updatedAt fields automatically
+  timestamps: true //  adds createdAt and updatedAt fields automatically
 });
 
 module.exports = mongoose.model("Product", productSchema);

@@ -1,26 +1,24 @@
-
-
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+html
   head
-    // Required meta tags
-    meta(charset='utf-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1')
-    link(rel='stylesheet' href='/css/index.css')
-    ul
-      .home-space
-        li
-          a.active.home-btn(href='#home') Home
-      li
-        a.login-btn(href='#news') Stock
-      li
-        a.contact-btn(href='#contact ') About
-      li
-        a.about-btn(href='#about ') Login
-    h1 Sales Records
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet', href='/css/index.css')
+    title Sales Records
 
+  body
+    // Navbar (with updated spacing consistent with other pages)
+    ul.home-space
+      li
+        a.active.home-btn(href="/") Home
+      li
+        a.login-btn(href="/products") Products
+      li
+        a.contact-btn(href="/services") Services
+      li
+        a.about-btn(href="/logout") Logout
+
+    h1 Sales Records
 
     h2 All Sales
     table#customers(border="1")
@@ -29,24 +27,28 @@ head
           th Product
           th Buyer
           th Quantity (kg)
-          th Unit Price
           th Total Paid
           th Sold By
           th Branch
           th Date
+          th Update 
+          th Delete
       tbody
       if sales && sales.length
         each sale in sales
           tr
-            td #{sale.productname.productname}
+            td #{sale.productname ? sale.productname.productname : 'N/A'}
             td #{sale.buyername}
             td #{sale.amountToBuy}
-            td #{sale.unitprice}
             td #{sale.totalPaid}
             td #{sale.soldby}
             td #{sale.branch}
             td #{moment(sale.createdAt).format("YYYY-MM-DD HH:mm")}
-
+            td
+                a.btn.btn-update(href="/updateSale/" + sale._id) Update
+            td
+              form(action="/deleteSale/#{sale._id}" method="post")
+              button.btn.btn-delete(type="submit") Delete
 
     h2 Matugga Sales
     table#customers(border="1")
@@ -55,21 +57,25 @@ head
           th Product
           th Buyer
           th Quantity (kg)
-          th Unit Price
           th Total Paid
           th Sold By
           th Date
+          th Update 
+          th Delete
       tbody
         each sale in matuggaSales
           tr
-            td #{sale.productname.productname}
+            td #{sale.productname ? sale.productname.productname : 'N/A'}
             td #{sale.buyername}
             td #{sale.amountToBuy}
-            td #{sale.unitprice}
             td #{sale.totalPaid}
             td #{sale.soldby}
             td #{moment(sale.createdAt).format("YYYY-MM-DD HH:mm")}
-
+            td
+                a.btn.btn-update(href="/updateSale/" + sale._id) Update
+            td
+              form(action="/deleteSale/#{sale._id}" method="post")
+              button.btn.btn-delete(type="submit") Delete
 
     h2 Maganjo Sales
     table#customers(border="1")
@@ -78,18 +84,22 @@ head
           th Product
           th Buyer
           th Quantity (kg)
-          th Unit Price
           th Total Paid
           th Sold By
           th Date
+          th Update 
+          th Delete
       tbody
         each sale in maganjoSales
           tr
-            td #{sale.productname.productname}
+            td #{sale.productname ? sale.productname.productname : 'N/A'}
             td #{sale.buyername}
             td #{sale.amountToBuy}
-            td #{sale.unitprice}
             td #{sale.totalPaid}
             td #{sale.soldby}
             td #{moment(sale.createdAt).format("YYYY-MM-DD HH:mm")}
-
+            td
+                a.btn.btn-update(href="/updateSale/" + sale._id) Update
+            td
+              form(action="/deleteSale/#{sale._id}" method="post")
+              button.btn.btn-delete(type="submit") Delete

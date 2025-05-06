@@ -531,3 +531,47 @@ small {
 .btn-delete:hover {
   background-color: #df357a;
 }
+
+/* Base Button Style */
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+/* Update Button */
+.btn-update {
+  background-color: #34aef5;
+  color: white;
+}
+
+.btn-update:hover {
+  background-color: #5cb5e5;
+}
+
+/* Make Sale Button */
+.btn-sale {
+  background-color: #4cf87a;
+  color: rgb(253, 251, 251);
+}
+
+.btn-sale:hover {
+  background-color: #90e8aa;
+}
+
+/* Delete Button */
+.btn-delete {
+  background-color: #fd2f81;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #e53b7b;
+}
