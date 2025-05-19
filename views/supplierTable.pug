@@ -1,0 +1,44 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  head
+    // Required meta tags
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='stylesheet' href='/css/index.css')
+    ul
+      .home-space
+        li
+          a.active.home-btn(href='/managerDash') Dashboard
+      li
+        a.login-btn(href='/addSupplier') Add Supplier
+      li
+        a.contact-btn(href='/seeSales') Sales
+      li
+        a.about-btn(href='/logout') Logout
+  h1 Suppliers
+  div
+    div
+    table#customers
+      tr
+        th Supplier
+        th Location
+        th Contact
+        th Product Supplied
+        th Update
+        th Delete
+      if suppliers.length
+        each supplier in suppliers
+          tr
+            td #{supplier.supplierName}
+            td #{supplier.supplierLocation}
+            td #{supplier.contact}
+            td #{supplier.suppliedProduct}
+            td
+              a.btn.btn-primary.btn-block(href="/updateSupplier/"+supplier._id) Update 
+            td
+              form(action="/deleteSupplier" method = "post")
+                   input(type="hidden" name="id" value=supplier._id)
+                   button.btn.btn-danger.btn-block(type="submit") Delete 
+      

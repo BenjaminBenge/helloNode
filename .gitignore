@@ -3,3 +3,796 @@ node_modules/
 .env
 loginCredentials.txt
 All passwords : MyKGL123_!
+
+
+//import models
+
+// //adding a sale
+
+// router.get("/addSale/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+//   req.session.user = req.user;
+//   firstName = req.user.firstName
+//   secondName = req.user.secondName
+//   branch = req.user.branch
+//   if (req.session.user.role === "salesAgent" || req.session.user.role === "Manager")
+//     try {
+//       const product = await Product.findOne({ _id: req.params.id });
+//       res.render("addSale", { product: product, firstName, secondName, branch});
+//     } catch (error) {
+//       res.status(400).send("unable to find this item in the database");
+//     }
+//   else {
+//     res.send("You are not allowed to access this page");
+//   }
+// });
+
+// // POST route to handle making a sale
+// router.post("/addSale/:id",
+//    connectEnsureLogin.ensureLoggedIn(),
+//    async (req, res) => {
+//   if (
+//       req.session.user.role == "salesAgent" ||
+//       req.session.user.role == "Manager"
+//       ) {
+//   try {
+
+//     const{AmountSold}= req.body;
+//     const product = await Product.findOne({ _id: req.params.id });
+//     if(!product){
+//       return res.status(404).send("Produce not found")
+//     }
+
+//      if(product.amountinkilos < AmountSold){
+//       return res
+//       .status(400)
+//       .send(
+//         'Not enough Tonnage in stock, there are ${product.amountinkilos} in stock'
+//       );
+//      }
+
+//      if(product && product.amountinkilos>0){
+//       const saleMade = new Sale({
+//         productName: req.body.product,
+//         SoldTonnage: req.body.AmountSold,
+//         unitSellinPrice: req.body.unitCost,
+//         amountPaid: req.body.amountPaid,
+//         buyerName: req.body. buyerfirstname,
+//         sellerName: req.body.soldby,
+
+//       })
+
+//      await saleMade.save();
+
+//      //Decrease the tonnage of produce in the database by the number of
+//      //Kilos sold
+
+//      product.amountinkilos -= AmountSold;
+//      console.log("New tonnage after sale", product.amountinkilos);
+
+//      await product.save();
+
+//      res.redirect("/seeTable");
+//     } else {
+//       return res
+//       .status(404)
+//       .json({error: "Produce not found or sold out"});
+//     }
+//   } catch(error){
+//     console.error("Error selling produe:", error.message);
+//     res.status(500).send("Internal Server Error");
+//   }
+
+//    }else{
+//     res.send("You are not allowed to access this page");
+//    }
+//   }
+
+// );
+
+// //Get all Sales
+
+// router.get("/seeSales",
+//   connectEnsureLogin.ensureLoggedIn(),
+//   async (req,res) => {
+
+//     try {
+//       let items = await Sale.find()
+//       .sort({$natural:-1})
+//       .populate(" product") //populate the "prodname" field with the corresponding Produce document/ all details of produce are extracted
+//       .populate("soldby")
+
+//       const maganjoSales = items.filter(
+//         (sale) => sale.product ?. branch === "Maganjo"
+//       );
+
+//       console.log("items in sales for maganjo", maganjoSales);
+//  res.render("salesTable", {
+//  title: "Sales list",
+//  sales: items,
+// });
+
+// } catch (err) {
+//   res.status(400).send("Unable to find items in the database");
+//   }
+//   }
+//   );
+
+// //route to delete sale
+// router.post(
+//   "/deleteSale",
+//   connectEnsureLogin.ensureLoggedIn(),
+//   async (req, res) => {
+//     try {
+//       await Sale.deleteOne({ _id: req.body.id });
+//       res.redirect("back");
+//     } catch (error) {
+//       res.status(400).send("unable to delete this item in the database");
+//     }
+//   }
+// );
+
+// //getting data from the db
+
+// router.get("/seeSales", async (req, res) => {
+//   try {
+//     let ourSales = await Sale.find().sort({ $natural: -1 });
+//     res.render("salesTable", {
+//       sales: ourSales,
+//     });
+//   } catch (error) {
+//     res.status(400).send("unable to find items in the database");
+//   }
+// });
+
+// // router.get("/getProducts", (req, res) => {
+// //   res.send("This is the List of products");
+// // });
+
+// // router.get("/seeProducts", (req, res) => {
+// //   res.render("ProductTable");
+// // });
+
+// router.get("/seeSales", (req, res) => {
+//   res.render("salesTable");
+// });
+
+// //route to update sale
+// router.get("/updateSale/:id", async (req, res) => {
+//   try {
+//     const updateSale = await Sale.findOne({ _id: req.params.id });
+//     res.render("updatesale", { sale: updateSale });
+//   } catch (error) {
+//     res.status(400).send("unable to find this item in the database");
+//   }
+// });
+
+// router.post("/updateSale", async (req, res) => {
+//   try {
+//     await Sale.findOneAndUpdate({ _id: req.query.id }, req.body);
+//     res.redirect("/seeSales");
+//   } catch (error) {}
+// });
+// //route to delete sale
+// router.post(
+//   "/deleteSale",
+//   connectEnsureLogin.ensureLoggedIn(),
+//   async (req, res) => {
+//     try {
+//       await Sale.deleteOne({ _id: req.body.id });
+//       res.redirect("back");
+//     } catch (error) {
+//       res.status(400).send("unable to delete this item in the database");
+//     }
+//   }
+// );
+
+// module.exports = router;
+
+// GET: Render form for making a sale
+// router.get(
+//   "/addSale/:id",
+//   connectEnsureLogin.ensureLoggedIn(),
+//   async (req, res) => {
+//     try {
+//       const product = await Product.findById(req.params.id);
+//       if (!product) return res.status(404).send("Product not found");
+
+//       const { firstName, secondName, branch, role } = req.user;
+
+//       if (["salesAgent", "Manager"].includes(role)) {
+//         res.render("addSale", { product, firstName, secondName, branch, role });
+//       } else {
+//         res.status(403).send("You are not authorized to access this page.");
+//       }
+//     } catch (err) {
+//       res.status(500).send("Error retrieving product");
+//     }
+//   }
+// );
+
+// // POST: Handle sale creation
+// router.post("/addSale/:id", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+//   const { role } = req.session.user;
+
+//   if (!["salesAgent", "Manager"].includes(role)) {
+//     return res.status(403).send("Unauthorized");
+//   }
+
+//   try {
+//     console.log("Incoming sale data:", req.body);
+
+//     const {
+//       amountToBuy,
+//       unitCost,
+//       totalPaid,
+//       buyername,
+//       salesPerson,
+//       branch,
+//       product
+//     } = req.body;
+
+//     // Convert strings to numbers and validate
+//     const quantity = parseFloat(amountToBuy);
+//     const unitPrice = parseFloat(unitCost);
+//     const paidAmount = parseFloat(totalPaid);
+
+//     if (
+//       isNaN(quantity) || quantity <= 0 ||
+//       isNaN(unitPrice) || unitPrice <= 0 ||
+//       isNaN(paidAmount) || paidAmount < 0
+//     ) {
+//       return res.render("addSale", {
+//         product: await Product.findById(req.params.id),
+//         error: "Invalid input values",
+//         firstName: req.user.firstName,
+//         secondName: req.user.secondName,
+//         branch: req.user.branch,
+//         role
+//       });
+//     }
+
+//     const foundProduct = await Product.findById(req.params.id);
+//     if (!foundProduct) return res.status(404).send("Product not found");
+
+//     if (foundProduct.amountinkilos < quantity) {
+//       const errorMsg = `Not enough stock for ${foundProduct.producename}. Available: ${foundProduct.amountinkilos}kg, Requested: ${quantity}kg.`;
+//       return res.render("addSale", {
+//         product: foundProduct,
+//         error: errorMsg,
+//         firstName: req.user.firstName,
+//         secondName: req.user.secondName,
+//         branch: req.user.branch,
+//         role
+//       });
+//     }
+
+//     const newSale = new Sale({
+//       productName: foundProduct.producename,
+//       product: foundProduct._id,
+//       SoldTonnage: quantity,
+//       unitSellinPrice: unitPrice,
+//       amountPaid: paidAmount,
+//       buyerName: buyername,
+//       soldby: salesPerson,
+//       branch: branch
+//     });
+
+//     await newSale.save();
+//     foundProduct.amountinkilos -= quantity;
+//     await foundProduct.save();
+
+//     res.redirect("/seeSales");
+//   } catch (err) {
+//     console.error("Sale Error:", err);
+//     res.status(500).send("Server error");
+//   }
+// });
+
+
+
+// //route to filter sales
+
+// router.get(
+//   "/seeSales",
+//   connectEnsureLogin.ensureLoggedIn(),
+//   async (req, res) => {
+//     try {
+//       const allSales = await Sale.find()
+//         .populate("product")
+//         .populate("soldby")
+//         .sort({ createdAt: -1 });
+//       const matuggaSales = allSales.filter((s) => s.branch === "Matugga");
+//       const maganjoSales = allSales.filter((s) => s.branch === "Maganjo");
+
+//       res.render("salesTable", {
+//         title: "Sales List",
+//         allSales,
+//         matuggaSales,
+//         maganjoSales,
+//         branch: req.user.branch,
+//       });
+//     } catch (err) {
+//       res.status(500).send("Failed to fetch sales.");
+//     }
+//   }
+// );
+
+// module.exports = router;
+
+// salesRoutes.js
+// const express = require('express');
+// const router = express.Router();
+// const Sale = require('../models/Sale');
+// const Product = require('../models/Product');
+// const User = require('../models/User');
+ 
+
+// const express = require("express");
+// const router = express.Router();
+// const mongoose = require("mongoose");
+// const Sale = require("../models/Sale");
+// const Product = require("../models/Product");
+// const Branch = require("../models/Branch");
+
+// GET: Render Add Sale page
+// router.get("/addSale/:id", async (req, res) => {
+//   try {
+//     const product = await Product.findById(req.params.id);
+
+//     if (!product) {
+//       return res.status(404).send("Product not found");
+//     }
+
+//     const user = req.session.user;
+
+//     if (!user || !["Manager", "salesAgent"].includes(user.role)) {
+//       return res.status(403).send("You are not authorized to access this page.");
+//     }
+
+//     const branchDoc = await Branch.findOne({ name: user.branch });
+//     if (!branchDoc) {
+//       return res.status(404).send("Branch not found");
+//     }
+
+//     res.render("addSale", {
+//       product,
+//       firstName: user.firstName,
+//       secondName: user.secondName,
+//       branch: branchDoc._id.toString(), // pass ObjectId as string for form
+//       role: user.role,
+//       error: null
+//     });
+//   } catch (err) {
+//     console.error("Error retrieving product:", err);
+//     res.status(500).send("Error retrieving product");
+//   }
+// });
+
+// // POST: Handle Sale Submission
+// router.post("/addSale/:id", async (req, res) => {
+//   try {
+//     const { amountToBuy, unitCost, totalPaid, salesPerson, branch } = req.body;
+//     const product = await Product.findById(req.params.id);
+
+//     if (!product) {
+//       return res.status(404).send("Product not found");
+//     }
+
+//     if (amountToBuy > product.quantity) {
+//       return res.render("addSale", {
+//         product,
+//         firstName: salesPerson,
+//         secondName: "",
+//         branch,
+//         role: req.session.user.role,
+//         error: "Not enough stock available"
+//       });
+//     }
+
+//     const sale = new Sale({
+//       buyername: req.session.user.firstName,
+//       product: product._id,
+//       amountToBuy,
+//       unitCost,
+//       totalPaid,
+//       salesPerson,
+//       branch: mongoose.Types.ObjectId(branch)
+//     });
+
+//     await sale.save();
+
+//     // Reduce product stock
+//     product.quantity -= amountToBuy;
+//     await product.save();
+
+//     res.redirect("/salesTable");
+//   } catch (err) {
+//     console.error("Sale Error:", err);
+//     res.status(500).send("Failed to save sale");
+//   }
+// });
+
+// // GET: Sales Table
+// router.get("/salesTable", async (req, res) => {
+//   try {
+//     const user = req.session.user;
+
+//     if (!user || !["Manager", "salesAgent"].includes(user.role)) {
+//       return res.status(403).send("You are not authorized to view sales.");
+//     }
+
+//     let sales;
+//     if (user.role === "Manager") {
+//       const branchDoc = await Branch.findOne({ name: user.branch });
+//       if (!branchDoc) {
+//         return res.status(404).send("Branch not found");
+//       }
+//       sales = await Sale.find({ branch: branchDoc._id }).populate("product").sort({ _id: -1 });
+//     } else {
+//       sales = await Sale.find().populate("product").sort({ _id: -1 });
+//     }
+
+//     res.render("salesTable", { sales });
+//   } catch (err) {
+//     console.error("Error fetching sales:", err);
+//     res.status(500).send("Failed to fetch sales");
+//   }
+// });
+
+// module.exports = router;
+
+
+//- doctype html
+//- //
+//-   <!DOCTYPE html>
+//-   <html lang="en">
+//-   <head>
+//-   <meta charset="UTF-8">
+//-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+//-   <link rel="stylesheet" href="/CSS/sales.css">
+//-   <title>Document</title>
+//-   </head>
+//-   <body>
+//-   <h2>Sales Form</h2>
+//-   <div class="one">
+//-   <form action="/addSales" method="post">
+//-   <label for="fname">First name:</label><br>
+//-   <input type="text" id="fname" name="fname" value=""><br>
+//-   <label for="lname">Last name:</label><br>
+//-   <input type="text" id="lname" name="lname" value=""><br><br>
+//- label(for='produceName') Product to Purchase:
+//-             select#produceName(name='product')
+//-               option(value=produce._id) #{produce.produceName} 
+//-             span#produceNameError.text-danger
+//-   <label for="fname">email:</label><br>
+//-   <input type="email" id="fname" name="fname" value=""><br>
+//-   <label for="pwd">Password:</label><br>
+//-   <input type="password" id="pwd" name="pwd"><br><br>
+//-   <input type="submit" value="Submit">
+//-   </div>
+//-   </form>
+//-   </body>
+//-   </html>
+
+//- head
+//-   meta(charset='UTF-8')
+//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
+//-   link(rel='stylesheet' href='/css/index.css')
+//-   ul
+//-     .home-space
+//-       li
+//-         a.active.home-btn(href='#home') Home
+//-     li
+//-       a.login-btn(href='#news') Stock
+//-     li
+//-       a.contact-btn(href='#contact ') About
+//-     li
+//-       a.about-btn(href='#about ') SignUp
+//-   title Document
+//- h1 Add Sale
+//- .space-around-manager-login
+//-   .manager-login
+//-     h4 Please make a sale here
+//-     form#myForm(action="/addSale/:id" method="post")
+//-       .imgcontainer
+//-         img.avatar(src='/img/flowers.jpg' alt='Avatar')
+//-       div
+//-         div
+//-           label(for='buyername') Buyer Name
+//-           br
+//-           br
+//-           input#buyerName(type='text' name='buyername' value='')
+//-           br
+//-           br
+//-           small#buyerNameError
+//-         label(for='productToBuy') Product to Buy:
+//-         br
+//-         br
+//-         select#productToBuy(name='productToBuy' form='')
+//-          option(value=sale._id) #{product.producename} 
+//-         br
+//-         br
+//-       div
+//-         label(for='typeOfProduce') Product to Buy:
+//-         br
+//-         br
+//-         select#typeOfProduce(name='typeOfProduce')
+//-            option(value=sale._id) #{product.productname} 
+//-         br
+//-         br
+//-       div
+//-         label(for='amountToBuy') Amount to buy in Kilos
+//-         br
+//-         br
+//-         input#amountToBuy(type='number' name='amountToBuy' value='1')
+//-         br
+//-         br
+//-         small#amountToBuyError
+//-       div
+//-         label(for='unitCost') Unit Cost in Ugx
+//-         br
+//-         input#unitCost(type='text' name='unitCost' value='')
+//-         br
+//-         br
+//-       div
+//-         label(for='fname') Total Paid
+//-         br
+//-         br
+//-         input#totalPaid(type='text' name='totalPaid' value='')
+//-         br
+//-         br
+//-       div
+//-         div
+//-           label(for='branch') Branch :
+//-           br
+//-           br
+//-           input#branch(type='text' name='branch' value=branch readonly)
+//-         div
+//-           label(for='soldBy') Sold By :
+//-           br
+//-           br
+//-           select#soldBy(name='soldBy')
+//-            option(value=firstName) #{firstName} 
+//-           br
+//-       input(type='submit' value='Submit')
+//-       .lower-login-section(style='background-color: #f1f1f1')
+//-         button.cancelbtn(type='button') Cancel
+//- script(src='/public/js/validateSale.js')
+
+
+//- doctype html
+//- html
+//-   head
+//-     title Add Sale
+//-     meta(charset="UTF-8")
+//-     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-     link(rel="stylesheet", href="/css/index.css")
+//-   body
+//-     ul
+//-       .home-space
+//-       li
+//-         a.home-btn(href="/") Home
+//-       li
+//-         a.login-btn(href="/products") Products
+//-       li
+//-         a.contact-btn(href="/services") Services
+//-       li
+//-         a.about-btn(href="/logout") Logout
+
+//-     h1 Add New Sale
+//-     .space-around-manager-login
+//-       .manager-login
+//-         h4 Please make a sale here
+//-         form#myForm(method="POST", action="/addSale/:id")
+//-           .imgcontainer 
+//-              img.avatar(src='/img/flowers.jpg' alt='Avatar')
+             
+//-           label(for="product") Product:
+//-           select(name="product", )
+//-             option(value=product._id)= product.productname
+
+//-           label(for="quantity") Quantity:
+//-           input(type="number", name="quantity", min="1", required)
+
+//-           label(for="salesPerson") Sold By:
+//-           input(type="text", name="salesPerson", value =firstName  readonly) 
+
+//-           label(for="branch") Branch:
+//-           input(type="text", name="salesPerson", value =branch  readonly)
+
+
+//-           input(type='submit' value='Submit')
+//-           .lower-login-section(style='background-color: #f1f1f1')
+//-             button.cancelbtn(type='button') Cancel
+//- script(src='/public/js/validateSale.js')
+
+//- doctype html
+//- html
+//-   head
+//-     title Add Sale
+//-     meta(charset="UTF-8")
+//-     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-     link(rel="stylesheet", href="/css/index.css")
+//-   body
+//-     ul
+//-       .home-space
+//-       li 
+//-         a.home-btn(href="/") Home
+//-       li
+//-         a.login-btn(href="/products") Products
+//-       li 
+//-         a.contact-btn(href="/services") Services
+//-       li 
+//-         a.about-btn(href="/logout") Logout
+//-     .container
+//-       h1 Add a New Sale
+//-       if error
+//-         p.error-message(style="color: red; font-weight: bold;") #{error}
+//-       .space-around-manager-login
+//-         .manager-login
+//-           h4 Please make a sale here
+//-       form#myForm(method="POST", action="/addSale/#{product._id}")
+//-         table
+//-           tr
+//-             td
+//-               label(for="productName") Product:
+//-             td
+//-               input(type="text", name="productName", readonly, value=product.producename)
+
+//-           tr
+//-             td
+//-               label(for="amountToBuy") Amount to Buy (kg):
+//-             td
+//-               input(type="number", name="amountToBuy", required, min="1", placeholder="Enter kg to sell")
+
+//-           tr
+//-             td
+//-               label(for="unitCost") Unit Cost (UGX):
+//-             td
+//-               input(type="number", name="unitCost", required, min="1", placeholder="Price per kg")
+
+//-           tr
+//-             td
+//-               label(for="totalPaid") Total Paid (UGX):
+//-             td
+//-               input(type="number", name="totalPaid", required, min="0", placeholder="How much was paid")
+
+//-           tr
+//-             td
+//-               label(for="buyername") Buyer Name:
+//-             td
+//-               input(type="text", name="buyername", required, placeholder="Enter buyer's name")
+
+//-           tr
+//-             td
+//-               label(for="soldBy") Sold By:
+//-             td
+//-               input(type="text", name="soldBy", readonly, value=firstName + ' ' + secondName)
+
+//-           tr
+//-             td
+//-               label(for="branch") Branch:
+//-             td
+//-               input(type="text", name="branch", readonly, value=branch)
+
+//-           tr
+//-             td
+//-             td
+//-               button(type="submit") Submit Sale
+
+//-       br
+//-       a(href="/products") ← Back to Products
+
+//-     footer
+//-       p &copy; #{new Date().getFullYear()} Your Company Name. All rights reserved.
+
+//- doctype html
+//- html
+//-   head
+//-     title Add Sale
+//-     meta(charset="UTF-8")
+//-     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-     link(rel="stylesheet", href="/css/index.css")
+//-   body
+//-     ul
+//-       .home-space
+//-       li
+//-         a.home-btn(href="/") Home
+//-       li
+//-         a.login-btn(href="/products") Products
+//-       li
+//-         a.contact-btn(href="/services") Services
+//-       li
+//-         a.about-btn(href="/logout") Logout
+
+//-     h1 Add New Sale
+//-     .space-around-manager-login
+//-       .manager-login
+//-         h4 Please make a sale here
+//-         form#myForm(method="POST", action="/addSale/:id")
+//-           .imgcontainer 
+//-              img.avatar(src='/img/flowers.jpg' alt='Avatar')
+             
+//-           label(for="product") Product:
+//-           select(name="product", )
+//-             option(value=product._id)= product.productname
+
+//-           label(for="quantity") Quantity:
+//-           input(type="number", name="quantity", min="1", required)
+
+//-           label(for="salesPerson") Sold By:
+//-           input(type="text", name="salesPerson", value =firstName  readonly) 
+
+//-           label(for="branch") Branch:
+//-           input(type="text", name="salesPerson", value =branch  readonly)
+
+
+//-           input(type='submit' value='Submit')
+//-           .lower-login-section(style='background-color: #f1f1f1')
+//-             button.cancelbtn(type='button') Cancel
+//- script(src='/public/js/validateSale.js')
+
+//- doctype html
+//- html
+//-   head
+//-     title Add Sale
+//-     meta(charset="UTF-8")
+//-     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-     link(rel="stylesheet", href="/css/index.css")
+//-   body
+//-     ul
+//-       .home-space
+//-       li
+//-         a.home-btn(href="/") Home
+//-       li
+//-         a.login-btn(href="/products") Products
+//-       li
+//-         a.contact-btn(href="/services") Services
+//-       li
+//-         a.about-btn(href="/logout") Logout
+
+//-     h1 Add New Sale
+
+//-     .space-around-manager-login
+//-       .manager-login
+//-         h4 Please make a sale here
+
+//-         if error
+//-           p(style="color: red; font-weight: bold;") #{error}
+
+//-         form#myForm(method="POST", action=`/addSale/${product._id}`)
+//-           .imgcontainer 
+//-             img.avatar(src='/img/flowers.jpg', alt='Avatar')
+          
+//-           label(for="buyername") Customer:
+//-           input(type="text", name="buyername")
+
+
+//-           label(for="product") Product:
+//-           select(name="product")
+//-             option(value=product._id selected)= product.productname
+
+//-           label(for="quantity") Quantity:
+//-           input(type="number", name="amountToBuy", min="1", required)
+
+          
+//-           label(for="unitCost") Unit Cost:
+//-           input(type="number", name="unitCost", min="1", required)
+
+          
+//-           label(for="totalPaid") Total Paid:
+//-           input(type="number", name="totalPaid", min="1", required)
+
+//-           label(for="salesPerson") Sold By:
+//-           input(type="text", name="salesPerson", value=firstName, readonly)
+
+//-           label(for="branch") Branch:
+//-           input(type="text", name="branch", value=branch, readonly)
+
+//-           input(type="submit", value="Submit")
+//-           .lower-login-section(style="background-color: #f1f1f1")
+//-             button.cancelbtn(type="button") Cancel
+
+//-     //- script(src="/public/js/validateSale.js")
+

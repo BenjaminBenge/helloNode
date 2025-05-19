@@ -1,0 +1,133 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/css/index.css')
+  uldoctype html
+html
+  head
+    title Edit Credit Sale
+    link(rel="stylesheet", href="/styles.css") // Optional stylesheet
+  body
+    h1 Edit Credit Sale for #{sale.productname.productname}
+
+    form(action=`/sales/editCreditSale/${sale._id}`, method="POST")
+      div
+        label(for="buyername") Customer Name:
+        input(type="text", name="buyername", value=sale.buyername, required)
+
+      div
+        label(for="amountToBuy") Quantity:
+        input(type="number", name="amountToBuy", value=sale.quantity, min="1", required)
+
+      div
+        label(for="unitCost") Unit Cost:
+        input(type="number", name="unitCost", step="0.01", value=sale.unitCost, required)
+
+      div
+        label(for="amountDue") Amount Due:
+        input(type="number", name="amountDue", step="0.01", value=sale.amountDue, required)
+
+      button(type="submit") Update Credit Sale
+
+    .home-space
+      li
+        a.active.home-btn(href='#home') Home
+    li
+      a.login-btn(href='#news') Stock
+    li
+      a.contact-btn(href='#contact ') About
+    li
+      a.about-btn(href='#about ') SignUp
+  title Document
+h1 Credit Customers
+.space-around-manager-login
+  .manager-login
+    h4 Please enter customer&apos;s details
+    form#form(action='/addCreditCustomer' onsubmit='return validateUserForm(event)' method ="POST")
+      .imgcontainer
+        img.avatar(src='/img/flowers.jpg' alt='Avatar')
+      label(for='fname') Name Of Buyer
+      br
+      input#buyerName(type='text' name='buyername' value='')
+      br
+      small#buyerNameError
+      br
+      label(for='gender') Gender:
+      br
+      select#gender(name='sex' form='')
+        option(value='Male') Male
+        option(value='Female') Female
+      small#genderError
+      br
+      label(for='NIN') NIN:
+      br
+      input#NINumber(type='text' name='NIN' value='')
+      br
+      small#NINumberError
+      br
+      label(for='fname') Phone Number:
+      br
+      input#phoneNumber(type='text' name='telePhoneNumber' value='')
+      br
+      small#phoneNumberError
+      br
+      small#phoneNumberError
+      label(for='dueDate') Due Date:
+      br
+      input#dueDate(type='date' name='dueDate' value='')
+      br
+      small#dueDateError
+      br
+      label(for='produce') Produce Name:
+      br
+      select#produceName(name='produceBoughtOnCredit' form='produceName')
+        option(value='Beans') Beans
+        option(value='Grains') Grains
+        option(value='Maize') Maize
+        option(value='CowPeas') Cow Peas
+        option(value='SoyBeans') Soy Beans
+      small#produceNameError
+      br
+      label(for='quantityBought') Quantity Bought:
+      br
+      input#password(type='text' name='quantityBought' value='')
+      small#amountDueError
+      br
+      br
+      label(for='unitCost') Unit Cost:
+      br
+      input#password(type='text' name='unitCost' value='')
+      small#amountDueError
+      br
+      br
+      label(for='amountDue') Amount Due:
+      br
+      input#password(type='text' name='amountDue' value='')
+      small#amountDueError
+      br
+      br
+      label(for='address') Address
+      br
+      input#address(type='text' name='address' value='')
+      br
+      small#addressError
+      label(for='city') City
+      br
+      input#city(type='text' name='city' value='')
+      br
+      small#cityError
+      br
+      label(for='lname') SalesAgent:
+      br
+      select#salesAgentName(name='salesAgentName' form='')
+        option(value='') Sales Agent Name
+      small#salesAgentNameError
+      br
+      select#branch(name='branch' form='')
+        option(value='Maganjo') Maganjo
+        option(value='Matugga') Matugga
+      input(type='submit' value='Submit')
+      .lower-login-section(style='background-color: #f1f1f1')
+        button.cancelbtn(type='button') Cancel
+script(src='public/js/validation.js')

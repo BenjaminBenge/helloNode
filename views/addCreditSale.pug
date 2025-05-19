@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title Add Credit Sale
+    link(rel="stylesheet", href="/styles.css")
+    script.
+      function calculateAmountDue() {
+        const quantity = parseFloat(document.querySelector('[name="amountToBuy"]').value) || 0;
+        const unitCost = parseFloat(document.querySelector('[name="unitCost"]').value) || 0;
+        document.querySelector('[name="amountDue"]').value = (quantity * unitCost).toFixed(2);
+      }
+      window.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('[name="amountToBuy"]').addEventListener('input', calculateAmountDue);
+        document.querySelector('[name="unitCost"]').addEventListener('input', calculateAmountDue);
+      });
+  body
+    h1 Add Credit Sale
+
+    form(action="/sales/addCreditSale", method="POST")
+      div
+        label(for="productname") Product:
+        select(name="productname", required)
+          option(value="", disabled selected) Select a product
+          each product in products
+            option(value=product._id)= product.productname
+
+      div
+        label(for="buyername") Customer Name:
+        input(type="text", name="buyername", required)
+
+      div
+        label(for="amountToBuy") Quantity:
+        input(type="number", name="amountToBuy", min="1", required)
+
+      div
+        label(for="unitCost") Unit Cost:
+        input(type="number", name="unitCost", step="0.01", required)
+
+      div
+        label(for="amountDue") Amount Due:
+        input(type="number", name="amountDue", step="0.01", readonly)
+
+      div
+        label(for="salesAgent") Sales Agent:
+        input(type="text", name="salesAgent", required)
+
+      button(type="submit") Add Credit Sale
+
+  

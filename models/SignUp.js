@@ -10,7 +10,7 @@ const signUpSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  phoneNumber: {
+  phone: {
     type: Number,
     trim: true,
     required: true,
@@ -29,10 +29,7 @@ const signUpSchema = new mongoose.Schema({
 
   ninNumber:{
     type: String,
-  },
-
-  phone:{
-    type: Number
+    unique: true,
   },
  
   maritalStatus:{
@@ -51,4 +48,5 @@ const signUpSchema = new mongoose.Schema({
 signUpSchema.plugin(passportLocalMongoose, {
   usernameField: "email",
 });
-module.exports = mongoose.model("Signup", signUpSchema);
+module.exports = mongoose.models.Signup || mongoose.model("Signup", signUpSchema );
+

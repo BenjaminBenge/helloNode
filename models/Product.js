@@ -1,45 +1,42 @@
 const mongoose = require("mongoose");
 
-
 const productSchema = new mongoose.Schema({
-  image:{
+  image: {
     type: String,
     trim: true
   },
   productname: {
     type: String,
-    trim: true,
+    trim: true
   },
-  description: {
-    type: String,
-    
+  supplier: {
+    type: String  // want this to be a foreign key
   },
-  
-  producttype: {
-    type: String,
+  typeOfProduct: {
+    type: String
   },
-
-  amountinkilos: {
-    type: String,
+  dateOfPurchase: {
+    type: Date
   },
-  unitprice:{
-   type: Number
+  tonnage: {
+    type: Number
   },
-
-  amount:{
+  C: {
     type: Number,
+    required: true,
+    default: 0
   },
-
-  amountSpent:{
-  type: Number,
+  unitprice: {
+    type: Number
   },
-
+  amountSpent: {
+    type: Number
+  },
   branch: {
-    type: String,
-
-  },
-
+    type: String
+  }
+}, {
+  timestamps: true //  adds createdAt and updatedAt fields automatically
 });
-
 
 module.exports = mongoose.model("Product", productSchema);

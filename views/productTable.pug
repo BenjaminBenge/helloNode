@@ -1,38 +1,65 @@
 doctype html
-head
-  meta(charset='UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  link(rel='stylesheet' href='/CSS/login.css')
-  title Document
-h2 Product List
-.topnav
-  a.active(href='#home') Home
-  a(href='/managerDash') Manager
-  a(href='/salesAgentDash') SalesAgent
-  a(href='/directorDash') Director
-div
-  table
-    thead 
-      tr
-        th Image
-        th Product Name
-        th Description
-        th Product Type
-        th Amount in Kilos
-    tbody 
-      if products.length 
-        each product in products
-          tr
-            td 
-              img(src="/"+product.image alt="image" width="100px" height="100px")
-            td #{product.productname}
-            td #{product.description}
-            td #{product.producttype}
-            td #{product.amountinkilos}
-            td 
-              a.btn.btn-primary.btn-block(href="/addSale/"+product._id) Make Sale
-            td 
-             form(action="/deleteSale" method = "post")
-                input(type="hidden" name="id" value=product._id)
-                button.btn.btn-danger.btn-block(type="submit") Delete 
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet' href='/css/index.css')
+  body
+    ul
+      .home-space
+        li
+          a.active.home-btn(href='/managerDash') Dashboard
+      li
+        a.login-btn(href='/addProduct') Add Product
+      li
+        a.contact-btn(href='/seeSales') Sales
+      li
+        a.about-btn(href='/logout') Logout
 
+    h1 Products
+
+    div
+      table#customers
+        tr
+          th Image
+          th Product Name
+          th Supplier
+          th Tonnage
+          th Unit Price
+          th Amount Spent
+          th Date Of Purchase
+          th Branch
+          th Update
+          th Make Sale
+          th Credit Sale
+          th Delete
+
+        if products.length
+          each product in products
+            tr
+              td
+                img.product-img(
+                  src='/img/uploads/' + product.image,
+                  alt=product.productname,
+                  width='100',
+                  height='100',
+                  style='border-radius: 5px; object-fit: cover;'
+                )
+              td #{product.productname}
+              td #{product.supplier}
+              td #{product.tonnage}
+              td #{product.unitprice}
+              td #{product.amountSpent}
+              td #{moment(product.createdAt).format("YYYY-MM-DD HH:mm")}
+              td #{product.branch}
+              td
+                a.btn.btn-update(href="/updateProduct/" + product._id) Update
+              td
+                a.btn.btn-sale(href="/addSale/" + product._id) Make Sale
+              td
+                a.btn.btn-sale(href="/addSale/" + product._id) Add Credit Sale
+
+              td
+                form(action="/deleteProduct" method="post")
+                  input(type="hidden" name="id" value=product._id)
+                  button.btn.btn-delete(type="submit") Delete
