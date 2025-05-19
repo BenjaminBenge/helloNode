@@ -1,84 +1,3 @@
-//- doctype html
-//- head
-//-   meta(charset='UTF-8')
-//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-//-   link(rel='stylesheet' href='/CSS/login.css')
-//-   title
-//- h2 Sign In
-//- .topnav
-//-   a.active(href='#home') Home
-//-   a(href='/managerDash') Manager
-//-   a(href='/salesAgentDash') SalesAgent
-//-   a(href='/directorDash') Director
-//- div
-//- form(action='/userSignIn' method='post')
-//-   .imgcontainer
-//-     img.avatar(src='/img/img_avatar2.png' alt='Avatar')
-//-   .container
-//-     label(for='firstName')
-//-       b First name
-//-     input(type='text' placeholder='Enter Firstname' name='k' required='')
-//-     br
-//-     label(for='secondName')
-//-       b Second name
-//-     input(type='text' placeholder='Enter First name' name='secondName' required='')
-//-     br
-//-     label(for='phoneNumber')
-//-       b Phone Number
-//-     input(type='text' placeholder='Enter number' name='phoneNumber' required='')
-//-     br
-//-     label(for='email') 
-//-     br 
-//-     b Enter your email:
-//-     br
-//-     input(type='email' name='email' placeholder='Enter email' required='' )
-//-     br
-//-     label(for='password')
-//-       b Password
-//-     input(type='password' placeholder='Enter Password' name='password' required='')
-//-     br
-//-     label(for='role')
-//-       b Role
-//-     br
-//-     br
-
-//-     input#html(type='radio' name='role' value='director')
-//-     label(for='manager') Director
-//-     input#html(type='radio' name='role' value='manager')
-//-     label(for='manager') Manager
-//-     input#css(type='radio' name='role' value='salesagent')
-//-     label(for='salesAgent') Sales Agent
-//-     br
-//-     br
-//-     label(for='branch')
-//-       b Branch
-//-     br  
-//-     br
-//-     input#html(type='radio' name='branch' value='')
-//-     label(for='role') Maganjo
-    
-//-     input#css(type='radio' name='branch' value='')
-//-     label(for='css') Matugga
-//-     br
-
-
-
-
-
-
-//-     button(type='submit') Login 
-    
-  
-    
-//-     label
-//-       input(type='checkbox' checked='checked' name='remember')
-//-       |  Remember me
-//-   .cancel
-//-     button.cancelbtn(type='button') Cancel
-//-     span.psw
-//-       | Forgot 
-//-       a(href='#') password?
-
 doctype html
 head
   meta(charset='UTF-8')
@@ -94,7 +13,7 @@ ul
   li
     a.contact-btn(href='#contact') About
   li
-    a.about-btn(href='#about') SignUp
+    a.about-btn(href='/login') Login
 h1  Sign Up
 .space-around-manager-login
   .manager-login
@@ -105,37 +24,52 @@ h1  Sign Up
       div
         label(for='firstName') First Name:
         br
+        br
         input#firstName(type='text' name='firstName')
+        br
         br
         small#firstNameError.error-message
       div
         label(for='secondName') Second Name:
         br
+        br
         input#secondName(type='text' name='secondName')
+        br
         br
         small#secondNameError.error-message
       div
         label(for='email') Email:
         br
+        br
         input#email(type='email' name='email')
+        br
         br
         small#emailError.error-message
       div
         label(for='password') Password:
         br
+        br
         input#password(type='password' name='password')
+        br
+        br
         br
         small#passwordError.error-message
       div
         label(for='confirmPassword') Confirm Password:
         br
+        br
         input#confirmPassword(type='password' name='confirmPassword')
+        br
+        br
         br
         small#confirmPasswordError.error-message
       div
         label(for='dob') Date of Birth:
         br
+        br
         input#dateOfBirth(type='date' name='dateOfBirth' )
+        br
+        br
         br
       div
         label(for='ninNumber') National ID Number:
@@ -163,6 +97,7 @@ h1  Sign Up
           option(value='Married') Married
           option(value='Widow/Widower') Widow/Widower
         br
+        br
       div
         label(for='branch') Branch :
         br
@@ -172,8 +107,10 @@ h1  Sign Up
           option(value='Maganjo') Maganjo
           option(value='Matugga') Matugga
         br
+        br
       div
         p Enter your Role here:
+        br
         input#role(type='radio' name='role' value='Director')
         label(for='director') Director
         input#role(type='radio' name='role' value='Manager')
@@ -193,6 +130,6 @@ h1  Sign Up
           | Forgot 
           a(href='#') password?
         span.create-account
-          | Have no account? 
-          a(href='#') Create One
-script(src='../public/js/signUpValidation.js')
+          | Have an account? 
+          a(href='/login') Login Instead
+script(src='../js/signUpValidation.js')

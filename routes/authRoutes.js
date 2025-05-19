@@ -72,7 +72,7 @@ router.post(
     if (req.user.role === "Manager") {
       res.redirect("/managerDash");
     } else if (req.user.role === "salesAgent") {
-      res.redirect("/salesAgentDash");
+      res.redirect("/seeProducts");
     } else if (req.user.role === "Director") {
       res.redirect("/directorDash");
     }else{

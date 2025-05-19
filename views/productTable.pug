@@ -8,13 +8,13 @@ html
     ul
       .home-space
         li
-          a.active.home-btn(href='#home') Home
+          a.active.home-btn(href='/managerDash') Dashboard
       li
-        a.login-btn(href='#news') Stock
+        a.login-btn(href='/addProduct') Add Product
       li
-        a.contact-btn(href='#contact') About
+        a.contact-btn(href='/seeSales') Sales
       li
-        a.about-btn(href='#about') Login
+        a.about-btn(href='/logout') Logout
 
     h1 Products
 
@@ -31,6 +31,7 @@ html
           th Branch
           th Update
           th Make Sale
+          th Credit Sale
           th Delete
 
         if products.length
@@ -55,6 +56,9 @@ html
                 a.btn.btn-update(href="/updateProduct/" + product._id) Update
               td
                 a.btn.btn-sale(href="/addSale/" + product._id) Make Sale
+              td
+                a.btn.btn-sale(href="/addSale/" + product._id) Add Credit Sale
+
               td
                 form(action="/deleteProduct" method="post")
                   input(type="hidden" name="id" value=product._id)

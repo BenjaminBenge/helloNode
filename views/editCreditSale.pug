@@ -3,7 +3,33 @@ head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(rel='stylesheet' href='/css/index.css')
-  ul
+  uldoctype html
+html
+  head
+    title Edit Credit Sale
+    link(rel="stylesheet", href="/styles.css") // Optional stylesheet
+  body
+    h1 Edit Credit Sale for #{sale.productname.productname}
+
+    form(action=`/sales/editCreditSale/${sale._id}`, method="POST")
+      div
+        label(for="buyername") Customer Name:
+        input(type="text", name="buyername", value=sale.buyername, required)
+
+      div
+        label(for="amountToBuy") Quantity:
+        input(type="number", name="amountToBuy", value=sale.quantity, min="1", required)
+
+      div
+        label(for="unitCost") Unit Cost:
+        input(type="number", name="unitCost", step="0.01", value=sale.unitCost, required)
+
+      div
+        label(for="amountDue") Amount Due:
+        input(type="number", name="amountDue", step="0.01", value=sale.amountDue, required)
+
+      button(type="submit") Update Credit Sale
+
     .home-space
       li
         a.active.home-btn(href='#home') Home
